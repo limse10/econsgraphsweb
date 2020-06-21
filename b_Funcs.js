@@ -1,3 +1,53 @@
+//function windowResized() {
+//  resizeCanvas(windowWidth, windowHeight);
+//}
+
+
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+
+function setClipboard(svg) {
+  navigator.permissions.query( { 
+  name: 
+    'clipboard-write'
+  }
+  ).then(result => {
+    if (result.state === 'granted') {
+      var blob = new Blob([svg], {
+      type: 
+        'image/svg+xml'
+      }
+      );
+      console.log(blob);
+      var item = new ClipboardItem( {
+      'image/svg+xml': 
+        blob
+      }
+      );
+      navigator.clipboard.write([item]).then(function() {
+      }
+      , function(error) {
+        console.log(error);
+      }
+      );
+    } else {
+    }
+  }
+  );
+}
+
 function new_diagram() {
 
   lines = new Array(0);
@@ -127,6 +177,27 @@ function insert(input, insertion, index) {
 
 
 
+function cleanP(input) {
+  var output = Array.from(input);
+
+  for (var i = input.length-1; i>=0; i--) { 
+    for (var j = input.length-1; j>=0; j--) {
+      if (i!=j) {
+        if (int(input[i].x)==int(input[j].x)&&int(input[i].y)==int(input[j].y)) {  
+          console.log("dupe");
+          if (input[i].type<input[j].type) { 
+
+            //output=output.splice(j, 1);
+          } else {  
+            output=output.splice(i, 1);
+          }
+        }
+      }
+    }
+  }
+  console.log(output);
+  return output;
+}
 
 function sortP(input) {
 
@@ -158,197 +229,198 @@ function sortP(input) {
 }
 
 
-//void calculatePoints() {
-//  for (int i = points.length-1; i>=0; i--) {
-//    for (int j = points[i].ps.length-1; j >=0; j--) {
-//      if (Float.isNaN(points[i].ps[j].x)||Float.isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
-//        points[i].ps=del(points[i].ps, j);
-//      }
-//    }
-//    if (Float.isNaN(points[i].x)||Float.isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
-//      points[i].ps=del(points, i);
-//    }
-//  }
-//  for (Line l : lines) {
-//    for (Line k : lines) {
-//      if (l!=k) {
-//        boolean solved=false;
-//        for (Point p : points) {
-//          if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-//            solved=true;
-//          }
-//        }
-//        if (!solved) {
-//          if (l.type==0&&k.type==0) {
-//            if (l.n==1&&k.n==1) {
-//              Point p = new Point(0, l, k);
-//              points=(Point[])append(points, p);
-//            } else if (l.n==1&&k.n==2) {
-//              Point p = new Point(0, l, k, -1);
-//              points=(Point[])append(points, p);
-//              p = new Point(0, l, k, 1);
-//              points=(Point[])append(points, p);
-//            } else if (l.n==1&&k.n==3) {
-//            }
-//          } else if (l.type==0&&k.type==1) {
-//            Point p = new Point(0, l, k);
-//            points=(Point[])append(points, p);
-//          }
-//          if (Float.isNaN(points[points.length-1].x)||Float.isNaN(points[points.length-1].y)) {
-//            points=del(points, points.length-1);
-//          }
-//        }
-//      }
-//    }
-//    for (Line k : axes) {
-//      if (l.type==0&&l.n==1) {
-//        boolean solved=false;
-//        for (Point p : points) {
-//          if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-//            solved=true;
-//          }
-//        }
-//        if (!solved) {
-//          Point p = new Point(2, k, l);
-//          points=(Point[])append(points, p);
-//        }
-//      }
-//    }
-//  } 
+function calculatePoints() {
+  for (var i = points.length-1; i>=0; i--) {
+    for (var j = points[i].ps.length-1; j >=0; j--) {
+      if (isNaN(points[i].ps[j].x)||isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
+        points[i].ps=del(points[i].ps, j);
+      }
+    }
+    if (isNaN(points[i].x)||isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
+      points[i].ps=del(points, i);
+    }
+  }
+  for (var l of Object.values(lines)) {
+    for (var k of Object.values(lines)) {
+      if (l!=k) {
+        var solved=false;
+        for (var p of Object.values(points)) {
+          if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
+            solved=true;
+          }
+        }
+        if (!solved) {
+          if (l.type==0&&k.type==0) {
+            if (l.n==1&&k.n==1) {
+              var p = new Point(0, l, k, NaN, NaN);
+              points=append(points, p);
+            } else if (l.n==1&&k.n==2) {
+              var p = new Point(0, l, k, -1, NaN);
+              points=append(points, p);
+              p = new Point(0, l, k, 1, NaN);
+              points=append(points, p);
+            } else if (l.n==1&&k.n==3) {
+            }
+          } else if (l.type==0&&k.type==1) {
+            var p = new Point(0, l, k, NaN, NaN);
+            points=append(points, p);
+          }
+          if (isNaN(points[points.length-1].x)||isNaN(points[points.length-1].y)) {
+            points=del(points, points.length-1);
+          }
+        }
+      }
+    }
+    for (var k of Object.values(axes)) {
+      if (l.type==0&&l.n==1) {
+        var solved=false;
+        for (var p of Object.values(points)) {
+          if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
+            solved=true;
+          }
+        }
+        if (!solved) {
+          var p = new Point(2, k, l);
+          points=append(points, p);
+        }
+      }
+    }
+  } 
 
 
 
-//  for (Point x : points) {
-//    if (!Float.isNaN(x.x)&&!Float.isNaN(x.y)) {
-//      for (Line l : x.ls) {
-//        for (Line k : lines) {
+  for (var x of Object.values(points)) {
 
-//          if (l!=k&&k!=x.l1&&k!=x.l2) {
-//            boolean solved=false;
-//            for (Point p : x.ps) {
-//              if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-//                solved=true;
-//              }
-//            }
+    if (!isNaN(x.x)&&!isNaN(x.y)) {
 
-
-//            if (!solved) {
-//              if (Float.isNaN(x.x)) {
-//                Point p = new Point(-1, l, k);
-//                x.ps=(Point[])append(x.ps, p);
-//              } else 
-//              if (k.type==0) {
-//                if (k.n==1) {
-//                  Point p = new Point(1, l, k, x);
-//                  x.ps=(Point[])append(x.ps, p);
-//                } else if (k.n==2) {
-//                  Point p = new Point(1, l, k, -1, x);
-//                  x.ps=(Point[])append(x.ps, p);
-//                  p = new Point(1, l, k, 1, x);
-//                  x.ps=(Point[])append(x.ps, p);
-//                }
-//              }
-//            }
-//          }
-//        }
+      for (var l of Object.values(x.ls)) {
+        for (var k of Object.values(lines)) {
+          if (l!=k&&k!=x.l1&&k!=x.l2) {
+            var solved=false;
+            for (var p of Object.values(x.ps)) {
+              if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
+                solved=true;
+              }
+            }
 
 
-//        for (Line k : axes) {
-//          if (l.type==2) {
-//            boolean solved=false;
-//            for (Point p : x.ps) {
-//              if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-//                solved=true;
-//              }
-//            }
-//            if (!solved) {
-//              Point p = new Point(2, k, l, x);
-//              x.ps=(Point[])append(x.ps, p);
-//            }
-//          }
-//        }
-//      }
+            if (!solved) {
+              if (isNaN(x.x)) {
+                var p = new Point(-1, l, k, NaN, NaN);
+                x.ps=append(x.ps, p);
+              } else 
+              if (k.type==0) {
+                if (k.n==1) {
+                  var p = new Point(1, l, k, NaN, x);
+                  x.ps=append(x.ps, p);
+                } else if (k.n==2) {
+                  var p = new Point(1, l, k, -1, x);
+                  x.ps=append(x.ps, p);
+                  p = new Point(1, l, k, 1, x);
+                  x.ps=append(x.ps, p);
+                }
+              }
+            }
+          }
+        }
 
 
-//      //////////////////////////////////////////////////////////////  
-//      for (Point c : x.ps) {
-//        for (Line l : c.ls) {
-//          for (Line k : axes) {
-
-//            if (l!=k&&k!=x.l1&&k!=x.l2) {
-//              boolean solved=false;
-//              for (Point p : x.ps) {
-//                if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-//                  solved=true;
-//                }
-//              }
-
-
-//              if (!solved) {
-//                if (Float.isNaN(x.x)) {
-//                  Point p = new Point(-1, l, k, c);
-//                  x.ps=(Point[])append(x.ps, p);
-//                } else 
-//                if (k.type==0) {
-//                  if (k.n==1) {
-//                    Point p = new Point(1, l, k, c);
-//                    x.ps=(Point[])append(x.ps, p);
-//                  } else if (k.n==2) {
-//                    Point p = new Point(1, l, k, -1, c);
-//                    x.ps=(Point[])append(x.ps, p);
-//                    p = new Point(1, l, k, 1, c);
-//                    x.ps=(Point[])append(x.ps, p);
-//                  }
-//                }
-//              }
-//            }
-//          }
+        for (var k of Object.values(axes)) {
+          if (l.type==2) {
+            var solved=false;
+            for (var p of Object.values(x.ps)) {
+              if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
+                solved=true;
+              }
+            }
+            if (!solved) {
+              var p = new Point(2, k, l, NaN, x);
+              x.ps=append(x.ps, p);
+            }
+          }
+        }
+      }
 
 
-//          for (Line k : axes) {
-//            if (l.type==2) {
-//              boolean solved=false;
-//              for (Point p : x.ps) {
-//                if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-//                  solved=true;
-//                }
-//              }
-//              if (!solved) {
-//                Point p = new Point(2, k, l, c);
-//                x.ps=(Point[])append(x.ps, p);
-//              }
-//            }
-//          }
-//        }
-//      }
-//      ////////////////////////////////////////////////////////////
-//    }
-//  }
+      //////////////////////////////////////////////////////////////  
+      for (var c of Object.values(x.ps)) {
+        for (var l of Object.values(c.ls)) {
+          for (var k of Object.values(axes)) {
 
-//  for (var i = points.length-1; i>=0; i--) {
-//    for (var j = points[i].ps.length-1; j >=0; j--) {
-//      if (Float.isNaN(points[i].ps[j].x)||Float.isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
-//        points[i].ps=del(points[i].ps, j);
-//      }
-//    }
-//    if (Float.isNaN(points[i].x)||Float.isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
-//      for (int k = points[i].ps.length-1; k >=0; k--) {
-//        points[i].ps=del(points[i].ps, i);
-//      }
-//      points=del(points, i);
-//    }
-//  }
-//  var originadded=false;
-//  for (Point p : points) {
-//    if (p.x==0&&p.y==0) {
-//      originadded=true;
-//    }
-//  }
-//  if (!originadded) {
-//    Point origin = new Point(2, xaxis, yaxis);
-//    points=(Point[])append(points, origin);
-//  }
-//}
+            if (l!=k&&k!=x.l1&&k!=x.l2) {
+              var solved=false;
+              for (var p of Object.values(x.ps)) {
+                if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
+                  solved=true;
+                }
+              }
+
+
+              if (!solved) {
+                if (isNaN(x.x)) {
+                  var p = new Point(-1, l, k, NaN, c);
+                  x.ps=append(x.ps, p);
+                } else 
+                if (k.type==0) {
+                  if (k.n==1) {
+                    var p = new Point(1, l, k, NaN, c);
+                    x.ps=append(x.ps, p);
+                  } else if (k.n==2) {
+                    var p = new Point(1, l, k, -1, c);
+                    x.ps=append(x.ps, p);
+                    p = new Point(1, l, k, 1, c);
+                    x.ps=append(x.ps, p);
+                  }
+                }
+              }
+            }
+          }
+
+
+          for (var k of Object.values(axes)) {
+            if (l.type==2) {
+              var solved=false;
+              for (var p of Object.values(x.ps)) {
+                if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
+                  solved=true;
+                }
+              }
+              if (!solved) {
+                var p = new Point(2, k, l, NaN, c);
+                x.ps=append(x.ps, p);
+              }
+            }
+          }
+        }
+      }
+      ////////////////////////////////////////////////////////////
+    }
+  }
+
+  for (var i = points.length-1; i>=0; i--) {
+    for (var j = points[i].ps.length-1; j >=0; j--) {
+      if (isNaN(points[i].ps[j].x)||isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
+        points[i].ps=del(points[i].ps, j);
+      }
+    }
+    if (isNaN(points[i].x)||isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
+      for (var k = points[i].ps.length-1; k >=0; k--) {
+        points[i].ps=del(points[i].ps, i);
+      }
+      points=del(points, i);
+    }
+  }
+  var originadded=false;
+  for (var p of Object.values(points)) {
+    if (p.x==0&&p.y==0) {
+      originadded=true;
+    }
+  }
+  if (!originadded) {
+    var origin = new Point(2, xaxis, yaxis, NaN, NaN);
+    points=append(points, origin);
+  }
+}
 
 function deleteLine() {
   for (var i = lines.length-1; i >= 0; i--) {

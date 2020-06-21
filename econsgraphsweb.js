@@ -43,7 +43,7 @@ let tbs = new Array(0);
 let x=0;
 let imageCount = 0;
 var u;
-var focus = false;
+let focus = false;
 let mode=-2;
 let keyTyped = false;
 let DOTTED = 1;
@@ -75,6 +75,7 @@ function setup() {
   //surface.setResizable(true);
   u = height/10;
   bg = color(230);
+textFont('Arial');
 
   background(bg);
 
@@ -102,21 +103,21 @@ function setup() {
 
 
 
-  //  let tempy = new Array(2);
-  //  tempy[0]=new createVector(0, 0);
-  //  tempy[1]=new createVector(0, w.h);
-  //  yaxis=new Line(3, tempy);
-  //  let tempx = new Array(2);
-  //  tempx[0]=new createVector(0, 0);
-  //  tempx[1]=new createVector(w.w, 0);
-  //  xaxis=new Line(3, tempx);
-  //  axes[0]=xaxis;
-  //  axes[1]=yaxis;
+    let tempy = new Array(2);
+    tempy[0]=new createVector(0, 0);
+    tempy[1]=new createVector(0, w.h);
+    yaxis=new Line(3, tempy);
+    let tempx = new Array(2);
+    tempx[0]=new createVector(0, 0);
+    tempx[1]=new createVector(w.w, 0);
+    xaxis=new Line(3, tempx);
+    axes[0]=xaxis;
+    axes[1]=yaxis;
 }
 
 
-function draw() { 
-  
+function draw() {  
+ 
   rect(100,100,100,100);
   render(bg, false);
 }

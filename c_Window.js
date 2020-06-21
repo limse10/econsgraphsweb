@@ -19,7 +19,7 @@ class Window {
     if (!exporting) {
       fill(0);
       textAlign(TOP, RIGHT);
-      text(this.mx+", " + this.my, u/10, height);
+      text(this.mx+", " + this.my, u, height-u/5);
     }
   }
 
@@ -49,7 +49,7 @@ class Window {
   }
 
   wrect(x, y, w, h) {
-    rect(this.x+3*this.m+this.x, height-this.m-this.y, this.w, this.h);
+    rect(this.x+3*this.m+x, height-this.m-y, w, h);
   }
  
   wline(x1, y1, x2, y2, dot) {
@@ -84,7 +84,7 @@ class Window {
 
 
   wcircle(x,  y,  r) {
-    ellipse(this.x+3*m+x, height-m-y, r, r);
+    ellipse(this.x+3*this.m+x, height-this.m-y, r, r);
   }
 
   wcurve(a,  b,  c,  x1,  x2,  r) {
@@ -103,11 +103,11 @@ class Window {
     this.wline(x-r, y+r, x+r, y-r);
   }
 
- write(text,  x,  y) {
-    text(text, this.x+3*m+x, height-m-y);
+ write(txt,  x,  y) {
+    text(txt, this.x+3*this.m+x, height-this.m-y);
   }
 
   wvertex(x,  y) {
-    vertex(this.x+3*m+x, height-m-y);
+    vertex(this.x+3*this.m+x, height-this.m-y);
   }
 }

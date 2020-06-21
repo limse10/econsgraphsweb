@@ -1,7 +1,5 @@
 class Line {
 
-
-
   constructor(type, p) {
     this.type=type;
     if (this.type==0||this.type==2) {
@@ -31,7 +29,6 @@ class Line {
     this.hovering = false;
     if (this.type<=1) {
       if (this.focusing&&mode==0) {
-        console.log("moving");
         this.move();
       }
     }
