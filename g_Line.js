@@ -22,6 +22,10 @@ class Line {
     this.exselected=true;
     this.c1 = color(0, 127, 255);
     this.c2 = color(0, 0, 255);
+    this.c3 = color(255, 20,20);
+
+    this.linept = 1.5;
+    this.dotpt = 0.75;
   }
 
 
@@ -35,7 +39,7 @@ class Line {
     if (this.type==0) {////////////////////////////////////////////draw bezier///////////////////////////////////////////////
       var t=0;
       while (t<=1) {
-        
+
         this.curr.x=0;
         this.curr.y=0;
         this.next.x=0;
@@ -49,11 +53,11 @@ class Line {
 
 
         stroke(0);
-        strokeWeight(4);
+        strokeWeight(this.linept);
 
         if (this.focusing&&mode==0) {
           stroke(this.c1);
-          strokeWeight(4);
+          strokeWeight(this.linept);
         }
 
         w.wline(this.curr.x, this.curr.y, this.next.x, this.next.y);
@@ -66,12 +70,12 @@ class Line {
       if ((this.focusing||this.hovering)&&mode==0) {
 
         if (this.n==2) {
-          strokeWeight(1);
+          strokeWeight(this.dotpt);
           stroke(127);
           w.wline(this.p[0].x, this.p[0].y, this.p[1].x, this.p[1].y);
           w.wline(this.p[2].x, this.p[2].y, this.p[1].x, this.p[1].y);
         } else if (this.n==3) {
-          strokeWeight(1);
+          strokeWeight(this.dotpt);
           stroke(127);
           w.wline(this.p[0].x, this.p[0].y, this.p[1].x, this.p[1].y);
           w.wline(this.p[2].x, this.p[2].y, this.p[3].x, this.p[3].y);
@@ -80,13 +84,13 @@ class Line {
         for (var x of Object.values(this.p)) {
 
           if (x.z==1) {
-            stroke(this.c2);
-            strokeWeight(4);
-            w.wpoint(x.x, x.y, this.r/2);
+            stroke(this.c3);
+            strokeWeight(this.linept*2);
+            w.wpoint(x.x, x.y, this.r/1.5);
           } else {
-            stroke(0);
-            strokeWeight(4);
-            w.wpoint(x.x, x.y, this.r/4);
+            stroke(this.c3);
+            strokeWeight(this.linept*2);
+            w.wpoint(x.x, x.y, this.r/2.5);
           }
         }
 
@@ -106,36 +110,36 @@ class Line {
       if ((abs(w.mx-this.p[1].x)<0.5*this.r&&w.my>this.p[0].y+this.asr&&w.my<this.p[1].y)||
         (abs(w.my-this.p[0].y)<0.5*this.r&&w.mx>this.p[0].x&&w.mx<this.p[1].x-this.asr)||
         ((sq(w.mx-this.p[1].x+this.asr)+sq(w.my-this.p[0].y-this.asr))>sq(this.asr-0.5*this.r)&&(sq(w.mx-this.p[1].x+this.asr)+sq(w.my-this.p[0].y-this.asr))<sq(this.asr+0.5*this.r))&&w.mx>this.p[1].x-this.asr&&w.my<this.p[0].y+this.asr) {
-        hovering = true;
+        this.hovering = true;
       }
       stroke(0);
-      strokeWeight(4);
+      strokeWeight(this.linept);
       if (this.focusing&&mode==0) {
         stroke(this.c1);
-        strokeWeight(4);
+        strokeWeight(this.linept);
       }
       w.wline(this.p[0].x, this.p[0].y, this.p[1].x-this.asr, this.p[0].y);
       w.wline(this.p[1].x, this.p[1].y, this.p[1].x, this.p[0].y+this.asr);
       w.warc(this.p[1].x-this.asr, this.p[0].y+this.asr, this.asr);
       if ((this.focusing||this.hovering)&&mode==0) {
 
-        for (var x of Object.values(p)) {
+        for (var x of Object.values(this.p)) {
 
           if (x.z==1) {
-            stroke(this.c2);
-            strokeWeight(4);
-            w.wpoint(x.x, x.y, this.r/2);
+            stroke(this.c3);
+            strokeWeight(this.linept*2);
+            w.wpoint(x.x, x.y, this.r/1.5);
           } else {
-            stroke(0);
-            strokeWeight(4);
-            w.wpoint(x.x, x.y, r/4);
+            stroke(this.c3);
+            strokeWeight(this.linept*2);
+            w.wpoint(x.x, x.y, this.r/2.5);
           }
         }
 
-        translating = true;
-        for (var x of Object.values(p)) {
+        this.translating = true;
+        for (var x of Object.values(this.p)) {
           if (x.z==1) {
-            translating = false;
+            this.translating = false;
           }
         }
       }
@@ -156,7 +160,7 @@ class Line {
           }
         }
       }
-      strokeWeight(2);
+      strokeWeight(this.dotpt);
       stroke(0);
       if (this.hovering&&mode==1) {
         stroke(this.c1);

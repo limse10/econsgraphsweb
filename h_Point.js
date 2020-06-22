@@ -67,9 +67,10 @@ class Point {
         }
         if (this.type==0) {
 
-          strokeWeight(3);
+          strokeWeight(2);
           w.wcircle(this.x, this.y, this.r);
         }
+        strokeWeight(4);
         if (this.type==1||this.type==2) {
           if (this.hovering||this.selected) {
             if (this.hovering && this.parent) {
@@ -193,8 +194,8 @@ class Point {
 
         var temps = new Array(2);
         this.y=this.l2.p[0].y;
-        temps[0]=new createVector(0, y);
-        temps[1]=new createVector(w.w, y);
+        temps[0]=new createVector(0, this.y);
+        temps[1]=new createVector(w.w, this.y);
         var l = new Line(2, temps);
         var p = new Point(0, l, this.l1,NaN,NaN);
         p.solve();
@@ -207,8 +208,8 @@ class Point {
         } else {
           temps = new Array(2);
           this.x=this.l2.p[1].x;
-          temps[0]=new createVector(x, 0);
-          temps[1]=new createVector(x, w.h);
+          temps[0]=new createVector(this.x, 0);
+          temps[1]=new createVector(this.x, w.h);
           l = new Line(2, temps);
           p = new Point(0, l, this.l1,NaN,NaN);
           p.solve();

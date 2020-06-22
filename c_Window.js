@@ -25,7 +25,7 @@ class Window {
 
   renderAxes() {
 
-    strokeWeight(4);
+    strokeWeight(1.5);
     stroke(0);
     this.wline(0, 0, 0, this.h-3*this.m);
     this.wline(0, 0, this.w-10*this.m, 0);

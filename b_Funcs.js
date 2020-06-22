@@ -53,7 +53,7 @@ function new_diagram() {
   lines = new Array(0);
   points = new Array(0);
   fills = new Array(0);
-  fill = new Array(0);
+  fillpts = new Array(0);
   tbs = new Array(0);
 }
 

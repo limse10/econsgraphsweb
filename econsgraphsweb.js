@@ -1,9 +1,9 @@
 
 
-//let svg = new SVG();
+let svg = new SVG();
 
 let mains = new Array(5);
-let labels = ["FILE", "LINES", "POINTS", "TEXT", "SHADING"];
+let labels = ["FILE", "LINES", "POINTS", "TEXT", "SHADING\n(not working properly)"];
 let sub0 = new Array(5);
 let labels0 = ["Add Line", "Add Curve", "Add Super\nCool Curve", "Add AS", "Delete Line" ];
 let sub1 = new Array(0);
@@ -11,9 +11,9 @@ let labels1 = ["Add/Remove\nFree Points"];
 let sub2 = new Array(3);
 let labels2 = ["Auto Add\nText Boxes", "+1 Text Box", "Delete Text"];
 let sub3 = new Array(3);
-let labels3 = ["Select Area", "Colour", "Delete Shade"];
+let labels3 = ["Select Area", "Colour\n(not ready)", "Delete Shade"];
 let sub4 = new Array(3);
-let labels4 = ["Clear", "Export PNG", "Export SVG"];
+let labels4 = ["Clear", "Export PNG\n(not ready)", "Export SVG"];
 let colorbuttons = new Array(6);
 let colors;
 
