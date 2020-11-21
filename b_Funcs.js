@@ -2,14 +2,15 @@
 //  resizeCanvas(windowWidth, windowHeight);
 //}
 
-
-
 function download(filename, text) {
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(text));
-  element.setAttribute('download', filename);
+  var element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:image/svg+xml;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
 
-  element.style.display = 'none';
+  element.style.display = "none";
   document.body.appendChild(element);
 
   element.click();
@@ -17,39 +18,32 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-
 function setClipboard(svg) {
-  navigator.permissions.query( { 
-  name: 
-    'clipboard-write'
-  }
-  ).then(result => {
-    if (result.state === 'granted') {
-      var blob = new Blob([svg], {
-      type: 
-        'image/svg+xml'
+  navigator.permissions
+    .query({
+      name: "clipboard-write",
+    })
+    .then((result) => {
+      if (result.state === "granted") {
+        var blob = new Blob([svg], {
+          type: "image/svg+xml",
+        });
+        console.log(blob);
+        var item = new ClipboardItem({
+          "image/svg+xml": blob,
+        });
+        navigator.clipboard.write([item]).then(
+          function () {},
+          function (error) {
+            console.log(error);
+          }
+        );
+      } else {
       }
-      );
-      console.log(blob);
-      var item = new ClipboardItem( {
-      'image/svg+xml': 
-        blob
-      }
-      );
-      navigator.clipboard.write([item]).then(function() {
-      }
-      , function(error) {
-        console.log(error);
-      }
-      );
-    } else {
-    }
-  }
-  );
+    });
 }
 
 function new_diagram() {
-
   lines = new Array(0);
   points = new Array(0);
   fills = new Array(0);
@@ -57,18 +51,17 @@ function new_diagram() {
   tbs = new Array(0);
 }
 
-
 function render(bg, svg) {
   background(bg);
 
-  for (var i = fills.length-1; i>=0; i--) { 
+  for (var i = fills.length - 1; i >= 0; i--) {
     if (fills[i].suicide) {
-      fills=del(fills, i);
+      fills = del(fills, i);
     } else {
       fills[i].render();
     }
   }
-  if (tempfill!=null) { 
+  if (tempfill != null) {
     tempfill.render();
   }
   for (var l of Object.values(lines)) {
@@ -102,36 +95,27 @@ function render(bg, svg) {
     }
   }
 
-
-  if (mode==3.3) {
-
+  if (mode == 3.3) {
     stroke(0);
     fill(fillcol);
-    w.wcircle(w.mx, w.my, u/2);
+    w.wcircle(w.mx, w.my, u / 2);
   }
 
-  w.renderWindow();   
+  w.renderWindow();
 
   w.renderAxes();
 }
 
-
-
-
 function endfill() {
-
-
-  fills=append(fills, tempfill);
-
+  fills = append(fills, tempfill);
 
   for (var p of Object.values(points)) {
     for (var x of Object.values(p.ps)) {
-
-      x.shading=false;
+      x.shading = false;
     }
-    p.shading=false;
+    p.shading = false;
   }
-  tempfill=null;
+  tempfill = null;
   mode = 3;
 }
 
@@ -141,55 +125,54 @@ function generateTextBoxes() {
       //TextBox tb = new TextBox( x.x-u/2, x.y-u/10, u, u/3);
       //tbs=(TextBox[])append(tbs, tb);
     }
-    var tb = new TextBox( p.x-u/2, p.y-u/10, u, u/3);
-    tbs=append(tbs, tb);
+    var tb = new TextBox(p.x - u / 2, p.y - u / 10, u, u / 3);
+    tbs = append(tbs, tb);
   }
 
   for (var l of Object.values(lines)) {
-    var px=0;
-    var py=0;
+    var px = 0;
+    var py = 0;
     for (var p of Object.values(l.p)) {
-      if (p.x>px) {
-        px=p.x;
-        py=p.y;
+      if (p.x > px) {
+        px = p.x;
+        py = p.y;
       }
     }
-    var tb = new TextBox( px-u/4, py+u/2, u, u/3);
-    tbs=append(tbs, tb);
+    var tb = new TextBox(px - u / 4, py + u / 2, u, u / 3);
+    tbs = append(tbs, tb);
   }
 }
 
-
 function insert(input, insertion, index) {
-  var output = new Array(input.length+insertion.length);
+  var output = new Array(input.length + insertion.length);
   for (var i = 0; i <= index; i++) {
-    output[i]=input[i];
+    output[i] = input[i];
   }
-  for (var i = 0; i <= insertion.length-1; i++) {
-    output[i+index+1]=insertion[i];
+  for (var i = 0; i <= insertion.length - 1; i++) {
+    output[i + index + 1] = insertion[i];
   }
-  for (var i = 0; i <= input.length-index-2; i++) {
-    output[i+index+insertion.length+1]=input[i+index+1];
+  for (var i = 0; i <= input.length - index - 2; i++) {
+    output[i + index + insertion.length + 1] = input[i + index + 1];
   }
 
   return output;
 }
 
-
-
 function cleanP(input) {
   var output = Array.from(input);
 
-  for (var i = input.length-1; i>=0; i--) { 
-    for (var j = input.length-1; j>=0; j--) {
-      if (i!=j) {
-        if (int(input[i].x)==int(input[j].x)&&int(input[i].y)==int(input[j].y)) {  
+  for (var i = input.length - 1; i >= 0; i--) {
+    for (var j = input.length - 1; j >= 0; j--) {
+      if (i != j) {
+        if (
+          int(input[i].x) == int(input[j].x) &&
+          int(input[i].y) == int(input[j].y)
+        ) {
           console.log("dupe");
-          if (input[i].type<input[j].type) { 
-
+          if (input[i].type < input[j].type) {
             //output=output.splice(j, 1);
-          } else {  
-            output=output.splice(i, 1);
+          } else {
+            output = output.splice(i, 1);
           }
         }
       }
@@ -200,194 +183,190 @@ function cleanP(input) {
 }
 
 function sortP(input) {
-
   var size = input.length;
   var output = new Array(size);
   var xt = 0;
   var yt = 0;
   for (var p of Object.values(input)) {
-    xt+=p.x;
-    yt+=p.y;
+    xt += p.x;
+    yt += p.y;
   }
-  var xbar=xt/size;
-  var ybar=yt/size;
+  var xbar = xt / size;
+  var ybar = yt / size;
   var angles = new Array(size);
-  for (var i = 0; i<size; i++) {
-    angles[i] = atan2((input[i].y-ybar), (input[i].x-xbar));
+  for (var i = 0; i < size; i++) {
+    angles[i] = atan2(input[i].y - ybar, input[i].x - xbar);
   }
   var sortedangles = sort(angles);
-  for (var i = 0; i<sortedangles.length; i++) {
-    for (var j = 0; j<angles.length; j++) {
-      if (sortedangles[i]==angles[j]) {
-        output[i]=input[j];
+  for (var i = 0; i < sortedangles.length; i++) {
+    for (var j = 0; j < angles.length; j++) {
+      if (sortedangles[i] == angles[j]) {
+        output[i] = input[j];
       }
     }
   }
-
 
   return output;
 }
 
-
 function calculatePoints() {
-  for (var i = points.length-1; i>=0; i--) {
-    for (var j = points[i].ps.length-1; j >=0; j--) {
-      if (isNaN(points[i].ps[j].x)||isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
-        points[i].ps=del(points[i].ps, j);
+  for (var i = points.length - 1; i >= 0; i--) {
+    for (var j = points[i].ps.length - 1; j >= 0; j--) {
+      if (
+        isNaN(points[i].ps[j].x) ||
+        isNaN(points[i].ps[j].y) ||
+        (points[i].ps[j].x == 0 && points[i].ps[j].y == 0)
+      ) {
+        points[i].ps = del(points[i].ps, j);
       }
     }
-    if (isNaN(points[i].x)||isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
-      points[i].ps=del(points, i);
+    if (
+      isNaN(points[i].x) ||
+      isNaN(points[i].y) ||
+      (points[i].x == 0 && points[i].y == 0)
+    ) {
+      points[i].ps = del(points, i);
     }
   }
   for (var l of Object.values(lines)) {
     for (var k of Object.values(lines)) {
-      if (l!=k) {
-        var solved=false;
+      if (l != k) {
+        var solved = false;
         for (var p of Object.values(points)) {
-          if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-            solved=true;
+          if ((p.l1 == l && p.l2 == k) || (p.l1 == k && p.l2 == l)) {
+            solved = true;
           }
         }
         if (!solved) {
-          if (l.type==0&&k.type==0) {
-            if (l.n==1&&k.n==1) {
+          if (l.type == 0 && k.type == 0) {
+            if (l.n == 1 && k.n == 1) {
               var p = new Point(0, l, k, NaN, NaN);
-              points=append(points, p);
-            } else if (l.n==1&&k.n==2) {
+              points = append(points, p);
+            } else if (l.n == 1 && k.n == 2) {
               var p = new Point(0, l, k, -1, NaN);
-              points=append(points, p);
+              points = append(points, p);
               p = new Point(0, l, k, 1, NaN);
-              points=append(points, p);
-            } else if (l.n==1&&k.n==3) {
+              points = append(points, p);
+            } else if (l.n == 1 && k.n == 3) {
             }
-          } else if (l.type==0&&k.type==1) {
+          } else if (l.type == 0 && k.type == 1) {
             var p = new Point(0, l, k, NaN, NaN);
-            points=append(points, p);
+            points = append(points, p);
           }
-          if (isNaN(points[points.length-1].x)||isNaN(points[points.length-1].y)) {
-            points=del(points, points.length-1);
+          if (
+            isNaN(points[points.length - 1].x) ||
+            isNaN(points[points.length - 1].y)
+          ) {
+            points = del(points, points.length - 1);
           }
         }
       }
     }
     for (var k of Object.values(axes)) {
-      if (l.type==0&&l.n==1) {
-        var solved=false;
+      if (l.type == 0 && l.n == 1) {
+        var solved = false;
         for (var p of Object.values(points)) {
-          if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-            solved=true;
+          if ((p.l1 == k && p.l2 == l) || (p.l1 == l && p.l2 == k)) {
+            solved = true;
           }
         }
         if (!solved) {
           var p = new Point(2, k, l);
-          points=append(points, p);
+          points = append(points, p);
         }
       }
     }
-  } 
-
-
+  }
 
   for (var x of Object.values(points)) {
-
-    if (!isNaN(x.x)&&!isNaN(x.y)) {
-
+    if (!isNaN(x.x) && !isNaN(x.y)) {
       for (var l of Object.values(x.ls)) {
         for (var k of Object.values(lines)) {
-          if (l!=k&&k!=x.l1&&k!=x.l2) {
-            var solved=false;
+          if (l != k && k != x.l1 && k != x.l2) {
+            var solved = false;
             for (var p of Object.values(x.ps)) {
-              if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-                solved=true;
+              if ((p.l1 == l && p.l2 == k) || (p.l1 == k && p.l2 == l)) {
+                solved = true;
               }
             }
-
 
             if (!solved) {
               if (isNaN(x.x)) {
                 var p = new Point(-1, l, k, NaN, NaN);
-                x.ps=append(x.ps, p);
-              } else 
-              if (k.type==0) {
-                if (k.n==1) {
+                x.ps = append(x.ps, p);
+              } else if (k.type == 0) {
+                if (k.n == 1) {
                   var p = new Point(1, l, k, NaN, x);
-                  x.ps=append(x.ps, p);
-                } else if (k.n==2) {
+                  x.ps = append(x.ps, p);
+                } else if (k.n == 2) {
                   var p = new Point(1, l, k, -1, x);
-                  x.ps=append(x.ps, p);
+                  x.ps = append(x.ps, p);
                   p = new Point(1, l, k, 1, x);
-                  x.ps=append(x.ps, p);
+                  x.ps = append(x.ps, p);
                 }
               }
             }
           }
         }
 
-
         for (var k of Object.values(axes)) {
-          if (l.type==2) {
-            var solved=false;
+          if (l.type == 2) {
+            var solved = false;
             for (var p of Object.values(x.ps)) {
-              if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-                solved=true;
+              if ((p.l1 == k && p.l2 == l) || (p.l1 == l && p.l2 == k)) {
+                solved = true;
               }
             }
             if (!solved) {
               var p = new Point(2, k, l, NaN, x);
-              x.ps=append(x.ps, p);
+              x.ps = append(x.ps, p);
             }
           }
         }
       }
 
-
-      //////////////////////////////////////////////////////////////  
+      //////////////////////////////////////////////////////////////
       for (var c of Object.values(x.ps)) {
         for (var l of Object.values(c.ls)) {
           for (var k of Object.values(axes)) {
-
-            if (l!=k&&k!=x.l1&&k!=x.l2) {
-              var solved=false;
+            if (l != k && k != x.l1 && k != x.l2) {
+              var solved = false;
               for (var p of Object.values(x.ps)) {
-                if ((p.l1==l&&p.l2==k)||(p.l1==k&&p.l2==l)) {
-                  solved=true;
+                if ((p.l1 == l && p.l2 == k) || (p.l1 == k && p.l2 == l)) {
+                  solved = true;
                 }
               }
-
 
               if (!solved) {
                 if (isNaN(x.x)) {
                   var p = new Point(-1, l, k, NaN, c);
-                  x.ps=append(x.ps, p);
-                } else 
-                if (k.type==0) {
-                  if (k.n==1) {
+                  x.ps = append(x.ps, p);
+                } else if (k.type == 0) {
+                  if (k.n == 1) {
                     var p = new Point(1, l, k, NaN, c);
-                    x.ps=append(x.ps, p);
-                  } else if (k.n==2) {
+                    x.ps = append(x.ps, p);
+                  } else if (k.n == 2) {
                     var p = new Point(1, l, k, -1, c);
-                    x.ps=append(x.ps, p);
+                    x.ps = append(x.ps, p);
                     p = new Point(1, l, k, 1, c);
-                    x.ps=append(x.ps, p);
+                    x.ps = append(x.ps, p);
                   }
                 }
               }
             }
           }
 
-
           for (var k of Object.values(axes)) {
-            if (l.type==2) {
-              var solved=false;
+            if (l.type == 2) {
+              var solved = false;
               for (var p of Object.values(x.ps)) {
-                if ((p.l1==k&&p.l2==l)||(p.l1==l&&p.l2==k)) {
-                  solved=true;
+                if ((p.l1 == k && p.l2 == l) || (p.l1 == l && p.l2 == k)) {
+                  solved = true;
                 }
               }
               if (!solved) {
                 var p = new Point(2, k, l, NaN, c);
-                x.ps=append(x.ps, p);
+                x.ps = append(x.ps, p);
               }
             }
           }
@@ -397,55 +376,66 @@ function calculatePoints() {
     }
   }
 
-  for (var i = points.length-1; i>=0; i--) {
-    for (var j = points[i].ps.length-1; j >=0; j--) {
-      if (isNaN(points[i].ps[j].x)||isNaN(points[i].ps[j].y)||(points[i].ps[j].x==0&&points[i].ps[j].y==0)) {
-        points[i].ps=del(points[i].ps, j);
+  for (var i = points.length - 1; i >= 0; i--) {
+    for (var j = points[i].ps.length - 1; j >= 0; j--) {
+      if (
+        isNaN(points[i].ps[j].x) ||
+        isNaN(points[i].ps[j].y) ||
+        (points[i].ps[j].x == 0 && points[i].ps[j].y == 0)
+      ) {
+        points[i].ps = del(points[i].ps, j);
       }
     }
-    if (isNaN(points[i].x)||isNaN(points[i].y)||(points[i].x==0&&points[i].y==0)) {
-      for (var k = points[i].ps.length-1; k >=0; k--) {
-        points[i].ps=del(points[i].ps, i);
+    if (
+      isNaN(points[i].x) ||
+      isNaN(points[i].y) ||
+      (points[i].x == 0 && points[i].y == 0)
+    ) {
+      for (var k = points[i].ps.length - 1; k >= 0; k--) {
+        points[i].ps = del(points[i].ps, i);
       }
-      points=del(points, i);
+      points = del(points, i);
     }
   }
-  var originadded=false;
+  var originadded = false;
   for (var p of Object.values(points)) {
-    if (p.x==0&&p.y==0) {
-      originadded=true;
+    if (p.x == 0 && p.y == 0) {
+      originadded = true;
     }
   }
   if (!originadded) {
     var origin = new Point(2, xaxis, yaxis, NaN, NaN);
-    points=append(points, origin);
+    points = append(points, origin);
   }
 }
 
 function deleteLine() {
-  for (var i = lines.length-1; i >= 0; i--) {
+  for (var i = lines.length - 1; i >= 0; i--) {
     if (lines[i].focusing) {
-      for (var j = points.length-1; j >=0; j--) {
-        for (var f = fills.length-1; f >=0; f--) {
+      for (var j = points.length - 1; j >= 0; j--) {
+        for (var f = fills.length - 1; f >= 0; f--) {
           for (var p of Object.values(fills[f].ps)) {
-            if (points[j]==p) {
-              fills=del(fills, f);
+            if (points[j] == p) {
+              fills = del(fills, f);
             }
           }
         }
-        for (var k = points[j].ps.length-1; k>=0; k--) {
-          for (var f = fills.length-1; f >=0; f--) {
+        for (var k = points[j].ps.length - 1; k >= 0; k--) {
+          for (var f = fills.length - 1; f >= 0; f--) {
             for (var p of Object.values(fills[f].ps)) {
-              if (points[j].ps[k]==p) {
-                fills=del(fills, f);
+              if (points[j].ps[k] == p) {
+                fills = del(fills, f);
               }
             }
           }
-          if (points[j].ps[k].l1==lines[i]||points[j].ps[k].l2==lines[i]) {
+          if (
+            points[j].ps[k].l1 == lines[i] ||
+            points[j].ps[k].l2 == lines[i]
+          ) {
             points[j].ps = del(points[j].ps, j);
           }
         }
-        if (points[j].l1==lines[i]||points[j].l2==lines[i]) {
+        if (points[j].l1 == lines[i] || points[j].l2 == lines[i]) {
           points = del(points, j);
         }
       }
@@ -455,40 +445,36 @@ function deleteLine() {
 }
 
 function deleteFill() {
-  for (var i = fills.length-1; i >= 0; i--) {
+  for (var i = fills.length - 1; i >= 0; i--) {
     if (fills[i].focusing) {
-
       fills = del(fills, i);
     }
   }
 }
 
 function deleteText() {
-  for (var i = tbs.length-1; i >= 0; i--) {
+  for (var i = tbs.length - 1; i >= 0; i--) {
     if (tbs[i].focusing) {
-
       tbs = del(tbs, i);
     }
   }
 }
 
 function del(input, index) {
-  var output = new Array(input.length-1);
-  for (var i = 0; i<output.length; i++) {
-    if (i<index) {
-      output[i]=input[i];
+  var output = new Array(input.length - 1);
+  for (var i = 0; i < output.length; i++) {
+    if (i < index) {
+      output[i] = input[i];
     } else {
-      output[i]=input[i+1];
+      output[i] = input[i + 1];
     }
   }
   return output;
 }
 
-
 function choose(n, r) {
   var output = 1;
-  for (var i = 1; i <= r; i++)
-  {
+  for (var i = 1; i <= r; i++) {
     output *= n - (r - i);
     output /= i;
   }

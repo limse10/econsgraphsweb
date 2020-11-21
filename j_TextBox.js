@@ -16,10 +16,13 @@ class TextBox {
     this.y=y;
     this.wid=w;
     this.h=h;
+
+    
   }
 
 
   render() {
+    
     //for(int i =0;i<t.length;i++){
     //println(t[i]);
     //}
@@ -82,6 +85,7 @@ class TextBox {
 
 
     w.wrect(this.x, this.y, this.wid, this.h);
+    
   }
 
 
@@ -112,7 +116,8 @@ class TextBox {
   }
   
   write(key) {
-
+    print(key);
+    
     this.t[this.substring]=this.t[this.substring]+key;
   }
   

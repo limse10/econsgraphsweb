@@ -1,10 +1,6 @@
-
-
 function doubleClicked() {
-
-
-  if (mode==3.1) {
-    if (tempfill!=null) {
+  if (mode == 3.1) {
+    if (tempfill != null) {
       endfill();
     }
     mode = 3;
@@ -14,23 +10,22 @@ function doubleClicked() {
 function mousePressed() {
   focus = false;
 
-
-  if (tempfill!=null&&mode!=3.1) {
+  if (tempfill != null && mode != 3.1) {
     endfill();
   }
 
   if (mains[1].hovered) {
-    mode=0;
-  } 
+    mode = 0;
+  }
   if (subs[0].buttons[4].hovered) {
     deleteLine();
   }
   if (subs[0].buttons[0].hovered) {
     var p = new Array(2);
-    if (lines.length==0) {
+    if (lines.length == 0) {
       p[0] = new createVector(0, 500);
       p[1] = new createVector(600, 0);
-    } else if (lines.length==1) {
+    } else if (lines.length == 1) {
       p[0] = new createVector(0, 500);
       p[1] = new createVector(300, 0);
     } else {
@@ -43,11 +38,11 @@ function mousePressed() {
   if (subs[0].buttons[1].hovered) {
     var p = new Array(3);
 
-    if (lines.length==2) {
+    if (lines.length == 2) {
       p[0] = new createVector(50, 200);
       p[1] = new createVector(150, 0);
       p[2] = new createVector(380, 550);
-    } else if (lines.length==3) {
+    } else if (lines.length == 3) {
       p[0] = new createVector(180, 500);
       p[1] = new createVector(280, 270);
       p[2] = new createVector(480, 480);
@@ -76,77 +71,63 @@ function mousePressed() {
     lines = append(lines, l);
   }
   if (mains[2].hovered) {
-    mode=1;
+    mode = 1;
     calculatePoints();
-  } 
-
+  }
 
   if (mains[3].hovered) {
-    mode=2;
-  } 
+    mode = 2;
+  }
 
   if (subs[2].buttons[0].hovered) {
     generateTextBoxes();
   }
   if (subs[2].buttons[1].hovered) {
-
-    var tb = new TextBox(-90, 570, u, u/3);
-    tbs=append(tbs, tb);
+    var tb = new TextBox(-90, 570, u, u / 3);
+    tbs = append(tbs, tb);
   }
 
   if (subs[2].buttons[2].hovered) {
-    for (var i=tbs.length-1; i>=0; i--) {
+    for (var i = tbs.length - 1; i >= 0; i--) {
       if (tbs[i].focusing) {
-        tbs=del(tbs, i);
+        tbs = del(tbs, i);
       }
     }
   }
 
-
-  if (mode==2) {
+  if (mode == 2) {
     for (var tb of Object.values(tbs)) {
-      if (tb.hovering&&!focus) {
-        tb.xoff=w.mx-tb.x;
-        tb.yoff=w.my-tb.y;
-        tb.focusing=true;
-        focus=true;
+      if (tb.hovering && !focus) {
+        tb.xoff = w.mx - tb.x;
+        tb.yoff = w.my - tb.y;
+        tb.focusing = true;
+        focus = true;
       } else {
-        tb.focusing=false;
-        focus=false;
+        tb.focusing = false;
+        focus = false;
       }
     }
   }
 
   if (subs[3].buttons[0].hovered) {
-
-
-
-
-
-
-
     mode = 3.1;
   }
   if (mains[4].hovered) {
     /////////////shading
     mode = 3;
     calculatePoints();
-    fillpts=new Array(0);
+    fillpts = new Array(0);
     for (var p of Object.values(points)) {
       for (var x of Object.values(p.ps)) {
-
-        x.shading=false;
+        x.shading = false;
       }
-      p.shading=false;
+      p.shading = false;
     }
   }
-
-
 
   if (subs[3].buttons[2].hovered) {
     deleteFill();
   }
-
 
   //if (subs[3].buttons[1].hovered) {
 
@@ -179,10 +160,9 @@ function mousePressed() {
   //  }
   //}
 
-
   if (mains[0].hovered) {
     //export button
-    mode=-1;
+    mode = -1;
   }
   if (subs[4].buttons[0].hovered) {
     new_diagram();
@@ -196,11 +176,10 @@ function mousePressed() {
 
   if (subs[4].buttons[2].hovered) {
     imageCount++;
-    svg = svg.writeToSVG();
-    download("diagram.svg", svg);
+    svg_download = svg.writeToSVG();
+    download("diagram.svg", svg_download);
 
     //setClipboard(svg);
-
 
     //beginRecord(SVG, "Diagrams/"+"diagram-" + imageCount+".svg");
     //exporting=true;
@@ -210,69 +189,65 @@ function mousePressed() {
     //svg.writeToSVG("Diagrams/"+"diagram-"+ imageCount+".svg");
   }
 
-  if (int(mode)==3) {
-
+  if (int(mode) == 3) {
     for (var f of Object.values(fills)) {
-
-      if (f.hovering&&!focus) {
-        f.focusing=true;
-        focus=true;
-        if (mode==3.3) {
-          f.c=fillcol;
-          mode=3;
+      if (f.hovering && !focus) {
+        f.focusing = true;
+        focus = true;
+        if (mode == 3.3) {
+          f.c = fillcol;
+          mode = 3;
         }
       } else {
         if (!subs[3].buttons[2].hovered) {
-          f.focusing=false;
-          focus=false;
+          f.focusing = false;
+          focus = false;
         }
       }
     }
   }
 
-
-  focus=false;
-  if (mode==0) {
-
+  focus = false;
+  if (mode == 0) {
     for (var l of Object.values(lines)) {
-      if (l.hovering&&!focus) {
+      if (l.hovering && !focus) {
         for (var k of Object.values(lines)) {
-          k.focusing=false;
+          k.focusing = false;
         }
         l.focusing = true;
-        focus=true;
+        focus = true;
         for (var i = 0; i < l.p.length; i++) {
-          l.transoff[i].x=w.mx-l.p[i].x;
-          l.transoff[i].y=w.my-l.p[i].y;
+          l.transoff[i].x = w.mx - l.p[i].x;
+          l.transoff[i].y = w.my - l.p[i].y;
         }
       } else {
         l.focusing = false;
-        focus=false;
+        focus = false;
       }
     }
   }
-  if (mode==1) {
-    var ihaveselectedsomethingalready=false;
+  if (mode == 1) {
+    var ihaveselectedsomethingalready = false;
     for (var p of Object.values(points)) {
       for (var l of Object.values(p.ls)) {
         if (l.hovering) {
           if (!l.exselected) {
-            l.exselected=true;
+            l.exselected = true;
           } else {
-            l.exselected=false;
+            l.exselected = false;
           }
         }
       }
       if (p.hovering) {
         if (!p.selected) {
-          p.selected=true;
-          ihaveselectedsomethingalready=true;
+          p.selected = true;
+          ihaveselectedsomethingalready = true;
           for (var l of Object.values(p.ls)) {
-            l.exselected=true;
+            l.exselected = true;
           }
         } else {
-          p.selected=false;
-          ihaveselectedsomethingalready=true;
+          p.selected = false;
+          ihaveselectedsomethingalready = true;
         }
       }
 
@@ -281,71 +256,67 @@ function mousePressed() {
           for (var l of Object.values(x.ls)) {
             if (l.hovering) {
               if (!l.exselected) {
-                l.exselected=true;
+                l.exselected = true;
               } else {
-                l.exselected=false;
+                l.exselected = false;
               }
             }
           }
           if (x.hovering) {
             if (!x.selected) {
-              x.selected=true;
+              x.selected = true;
               for (var l of Object.values(x.ls)) {
-                l.exselected=true;
+                l.exselected = true;
               }
             } else {
-              x.selected=false;
+              x.selected = false;
             }
           }
         }
       }
     }
   }
-  if (mode==3.1) {
-    var ihaveselectedsomethingalready=false;
+  if (mode == 3.1) {
+    var ihaveselectedsomethingalready = false;
     for (var p of Object.values(points)) {
-
       if (p.hovering) {
         if (!p.shading) {
-          p.shading=true;
-          ihaveselectedsomethingalready=true;
+          p.shading = true;
+          ihaveselectedsomethingalready = true;
         } else {
-          p.shading=false;
-          ihaveselectedsomethingalready=true;
+          p.shading = false;
+          ihaveselectedsomethingalready = true;
         }
       }
 
       if (!ihaveselectedsomethingalready) {
         for (var x of Object.values(p.ps)) {
-
           if (x.hovering) {
             if (!x.shading) {
-              x.shading=true;
+              x.shading = true;
             } else {
-              x.shading=false;
+              x.shading = false;
             }
           }
         }
       }
     }
 
-
     var fillpts = new Array(0);
     for (var p of Object.values(points)) {
       for (var x of Object.values(p.ps)) {
-
         if (x.shading) {
-          fillpts=append(fillpts, x);
+          fillpts = append(fillpts, x);
         }
       }
       if (p.shading) {
-        fillpts=append(fillpts, p);
+        fillpts = append(fillpts, p);
       }
     }
-    if (fillpts.length>2) {
+    if (fillpts.length > 2) {
       var f = new Fill(sortP(fillpts));
 
-      tempfill=f;
+      tempfill = f;
     }
 
     console.log(tempfill);
@@ -353,205 +324,193 @@ function mousePressed() {
     fillpts = new Array(0);
   }
 
-
-
   if (mode == 0) {
     for (var b of Object.values(subs[0].buttons)) {
-      b.visible=true;
+      b.visible = true;
     }
     for (b of Object.values(subs[1].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[2].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[3].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[4].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
   }
   if (int(mode) == 1) {
     for (var b of Object.values(subs[0].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[1].buttons)) {
-      b.visible=true;
+      b.visible = true;
     }
     for (b of Object.values(subs[2].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[3].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[4].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
   }
   if (mode == 2) {
     for (var b of Object.values(subs[0].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[1].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[2].buttons)) {
-      b.visible=true;
+      b.visible = true;
     }
     for (b of Object.values(subs[3].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[4].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
   }
   if (int(mode) == 3) {
     for (var b of Object.values(subs[0].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[1].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[2].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[3].buttons)) {
-      b.visible=true;
+      b.visible = true;
     }
     for (b of Object.values(subs[4].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
   }
   if (int(mode) == -1) {
     for (var b of Object.values(subs[0].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[1].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[2].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
     for (b of Object.values(subs[3].buttons)) {
-      b.visible=false;
+      b.visible = false;
     }
-    for (b of Object.values(subs[4].buttons) ) {
-      b.visible=true;
+    for (b of Object.values(subs[4].buttons)) {
+      b.visible = true;
     }
   }
 }
 
-
-
-
 function keyPressed() {
-
-
-  if (keyCode==46) {
-    if (mode==0) {
+  if (keyCode == 46) {
+    if (mode == 0) {
       deleteLine();
-    } else if (mode==2) {
+    } else if (mode == 2) {
       deleteText();
-    } else if (mode==3) {
+    } else if (mode == 3) {
       deleteFill();
     }
   }
 
-  if (mode==0) {
-
-    if (keyCode==17) {
-      keys[0]=true;
-    } else if (keyCode==67) {
-      keys[1]=true;
-    } else if (keyCode==86) {
-      keys[2]=true;
+  if (mode == 0) {
+    if (keyCode == 17) {
+      keys[0] = true;
+    } else if (keyCode == 67) {
+      keys[1] = true;
+    } else if (keyCode == 86) {
+      keys[2] = true;
     }
-    if (keys[1]&&keys[0]&&!keys[2]) {
-
+    if (keys[1] && keys[0] && !keys[2]) {
       for (var l of Object.values(lines)) {
         if (l.focusing) {
-          l.focusing=false;
+          l.focusing = false;
           copied = new Line(l.type, l.p);
         }
       }
     }
-    if (keys[1]&&keys[0]&&!keys[2]) {
-
+    if (keys[1] && keys[0] && !keys[2]) {
       for (l of Object.values(lines)) {
         if (l.focusing) {
-          l.focusing=false;
+          l.focusing = false;
           copied = new Line(l.type, l.p);
         }
       }
     }
-    if (keys[2]&&keys[0]&&!keys[1]) {
-
-      if (copied!=null) {
+    if (keys[2] && keys[0] && !keys[1]) {
+      if (copied != null) {
         var p = new Array(copied.p.length);
         for (var i = 0; i < p.length; i++) {
-          p[i]=new createVector(copied.p[i].x+u, copied.p[i].y);
+          p[i] = new createVector(copied.p[i].x + u, copied.p[i].y);
         }
         var pasted = new Line(copied.type, p);
-        lines=append(lines, pasted);
-        copied=pasted;
+        lines = append(lines, pasted);
+        copied = pasted;
         for (l of Object.values(lines)) {
           if (l.focusing) {
-            l.focusing=false;
+            l.focusing = false;
           }
-          pasted.focusing=true;
+          pasted.focusing = true;
         }
       }
     }
   }
 
+  // if (keyCode==17) {
+  //   for (var tb of Object.values(tbs)) {
+  //     if (tb.focusing) {
+  //       tb.substring++;
+  //       tb.t=append(tb.t, "");
 
-  if (keyCode==17) {
-    for (var tb of Object.values(tbs)) {
-      if (tb.focusing) {
-        tb.substring++; 
-        tb.t=append(tb.t, "");
+  //       tb.subscript=append(tb.subscript, !tb.subscript[tb.subscript.length-1]);
+  //     }
+  //   }
+  // } else if (keyCode==8||keyCode==46) {
+  //   for (var tb of Object.values(tbs)) {
+  //     if (tb.focusing) {
 
-        tb.subscript=append(tb.subscript, !tb.subscript[tb.subscript.length-1]);
-      }
-    }
-  } else if (keyCode==8||keyCode==46) {
-    for (var tb of Object.values(tbs)) {
-      if (tb.focusing) {
+  //       if (tb.t[0].length>0) {
+  //         tb.backspace();
+  //       }
+  //     }
+  //   }
+  // } else if (keyCode==13) {
+  //   for (var tb of Object.values(tbs)) {
+  //     if (tb.focusing) {
 
-        if (tb.t[0].length>0) {
-          tb.backspace();
-        }
-      }
-    }
-  } else if (keyCode==13) {
-    for (var tb of Object.values(tbs)) {
-      if (tb.focusing) {
+  //       if (tb.t[0].length>0) {
+  //         tb.write("\n");
+  //       }
+  //     }
+  //   }
+  // } else {
+  //   if (keyCode!=16) {
 
-        if (tb.t[0].length>0) {
-          tb.write("\n");
-        }
-      }
-    }
-  } else {
-    if (keyCode!=16) {
+  //     for (var tb of Object.values(tbs)) {
+  //       if (tb.focusing) {
 
-      for (var tb of Object.values(tbs)) {
-        if (tb.focusing) {
-
-          tb.write(key);
-        }
-      }
-    }
-  }
+  //         tb.write(key);
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 function keyReleased() {
-  if (keyCode==17) {
-    keys[0]=true;
-  } else if (keyCode==67) {
-    keys[1]=false;
-  } else if (keyCode==86) {
-    keys[2]=false;
+  if (keyCode == 17) {
+    keys[0] = true;
+  } else if (keyCode == 67) {
+    keys[1] = false;
+  } else if (keyCode == 86) {
+    keys[2] = false;
   }
 }
