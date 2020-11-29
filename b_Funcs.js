@@ -52,6 +52,7 @@ function new_diagram() {
 }
 
 function render(bg, svg) {
+  document.body.style.cursor = "default";
   background(bg);
 
   for (var i = fills.length - 1; i >= 0; i--) {
@@ -141,6 +142,10 @@ function generateTextBoxes() {
     var tb = new TextBox(px - u / 4, py + u / 2, u, u / 3);
     tbs = append(tbs, tb);
   }
+  xaxisbox = new TextBox(w.w - 9.5 * w.m, u / 6, u, u / 3);
+  tbs = append(tbs, xaxisbox);
+  yaxisbox = new TextBox(-u / 2, w.h - 2 * w.m, u, u / 3);
+  tbs = append(tbs, yaxisbox);
 }
 
 function insert(input, insertion, index) {
@@ -455,6 +460,7 @@ function deleteFill() {
 function deleteText() {
   for (var i = tbs.length - 1; i >= 0; i--) {
     if (tbs[i].focusing) {
+      tbs[i].delete();
       tbs = del(tbs, i);
     }
   }

@@ -241,7 +241,7 @@ class SVG {
       this.file = append(
         this.file,
         "<text x = '" +
-          this.toAbs(tb.x + 4, 0) +
+          this.toAbs(tb.x + 2, 0) +
           "' y = '" +
           this.toAbs(tb.y - 19, 1) +
           "' >"

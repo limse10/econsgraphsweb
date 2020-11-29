@@ -1,26 +1,22 @@
 class Button {
-
-
-
-  constructor(type, t, icon, x1, y1, x2, y2, d, c1, c2) {
+  constructor(type, t, icon, x1, y1, x2, y2, d, c1, c2, mode) {
     var pressed = false;
     var hovered = false;
     var visible = false;
     //var bs = new Array(0);
-    this.t=t;
-    this.x1=x1;
-    this.y1=y1;
-    this.x2=x2;
-    this.y2=y2;
-    this.d=d;
-    this.c1=c1;
-    this.c2=c2;
-    this.type=type;
-    this.icon=icon;
+    this.t = t;
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.d = d;
+    this.c1 = c1;
+    this.c2 = c2;
+    this.type = type;
+    this.icon = icon;
+    this.mode = mode;
+    this.c3 = 150;
   }
-
-
- 
 
   //Button(color c, Button parent, int i) {
   //  this.c=c;
@@ -33,17 +29,26 @@ class Button {
   //}
 
   render() {
-    if (this.type<2) {
-      this.hovered=false;
+    if (this.type < 2) {
+      this.hovered = false;
       if (this.visible) {
         fill(this.c1);
 
-        if (dist(mouseX, mouseY, this.x1, this.y1)<this.d/2||dist(mouseX, mouseY, this.x2, this.y2)<this.d/2||(mouseX>this.x1&&mouseX<this.x2&&mouseY>this.y1-this.d/2&&mouseY<this.y2+this.d/2)) {
-          this.hovered=true;
+        if (
+          dist(mouseX, mouseY, this.x1, this.y1) < this.d / 2 ||
+          dist(mouseX, mouseY, this.x2, this.y2) < this.d / 2 ||
+          (mouseX > this.x1 &&
+            mouseX < this.x2 &&
+            mouseY > this.y1 - this.d / 2 &&
+            mouseY < this.y2 + this.d / 2)
+        ) {
+          this.hovered = true;
           fill(this.c2);
         }
-
-        if (this.type==MAIN) {
+        if (int(mode) == this.mode) {
+          fill(this.c3);
+        }
+        if (this.type == MAIN) {
           noStroke();
           strokeWeight(2);
           ellipse(this.x1, this.y1, this.d, this.d);
@@ -51,19 +56,22 @@ class Button {
           textSize(16);
           textAlign(CENTER, CENTER);
           fill(0);
-          text(this.t, this.x1, this.y1+0.7*this.d);
-          image(this.icon, this.x1-this.icon.width/2, this.y1-this.icon.height/2);
-        } else if (this.type==SUB) {
-
+          text(this.t, this.x1, this.y1 + 0.7 * this.d);
+          image(
+            this.icon,
+            this.x1 - this.icon.width / 2,
+            this.y1 - this.icon.height / 2
+          );
+        } else if (this.type == SUB) {
           noStroke();
           strokeWeight(2);
           ellipse(this.x1, this.y1, this.d, this.d);
           ellipse(this.x2, this.y2, this.d, this.d);
-          rect(this.x1, this.y1-this.d/2, this.x2-this.x1, this.d);
+          rect(this.x1, this.y1 - this.d / 2, this.x2 - this.x1, this.d);
           textSize(16);
           textAlign(CENTER, CENTER);
           fill(0);
-          text(this.t, (this.x1+this.x2)/2, this.y1);
+          text(this.t, (this.x1 + this.x2) / 2, this.y1);
         }
       }
       if (this.visible) {
@@ -72,15 +80,15 @@ class Button {
             if (b.visible) {
               b.render();
             } else {
-              b.hovered=false;
+              b.hovered = false;
             }
           }
         }
       }
-    } else if (type==2) {
-      hovered=false;
-      if (dist(mouseX, mouseY, x1, y1)<d/2) {
-        hovered=true;
+    } else if (type == 2) {
+      hovered = false;
+      if (dist(mouseX, mouseY, x1, y1) < d / 2) {
+        hovered = true;
       }
       if (visible) {
         fill(c, alpha);
@@ -94,7 +102,7 @@ class Button {
 
         noStroke();
         strokeWeight(2);
-        ellipse(x1, y1, 0.9*d, 0.9*d);
+        ellipse(x1, y1, 0.9 * d, 0.9 * d);
       }
     }
   }

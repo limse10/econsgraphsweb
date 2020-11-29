@@ -10,6 +10,13 @@ function doubleClicked() {
 function mousePressed() {
   focus = false;
 
+  for (var tb of Object.values(tbs)) {
+    if (tb.checkPress()) {
+      mode = 2;
+    }
+    tb.focusing = false;
+  }
+
   if (tempfill != null && mode != 3.1) {
     endfill();
   }
@@ -88,11 +95,7 @@ function mousePressed() {
   }
 
   if (subs[2].buttons[2].hovered) {
-    for (var i = tbs.length - 1; i >= 0; i--) {
-      if (tbs[i].focusing) {
-        tbs = del(tbs, i);
-      }
-    }
+    deleteText();
   }
 
   if (mode == 2) {

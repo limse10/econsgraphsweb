@@ -120,6 +120,8 @@ function setup() {
   xaxis = new Line(3, tempx);
   axes[0] = xaxis;
   axes[1] = yaxis;
+  mode = -2;
+  calculatePoints();
 }
 
 function draw() {

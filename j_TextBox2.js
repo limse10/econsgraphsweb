@@ -11,24 +11,24 @@ class TextBox {
     this.w = w;
     this.varw = w;
     this.h = h;
+    this.marg = h / 3;
     this.input = createInput();
     this.input.position(this.x, this.y);
     this.input.size(w, h);
   }
 
   render() {
-    if (mode == 2) {
-      this.input.style("border", "solid");
-    } else {
-      this.input.style("border", "none");
-    }
-
     //for(int i =0;i<t.length;i++){
     //println(t[i]);
     //}
     //    println("________________________________________");
 
     this.checkHover();
+    if (this.hovering) {
+      document.body.style.cursor = "move";
+    } else {
+      document.body.style.cursor = "default";
+    }
     if (this.focusing) {
       mode = 2;
       if (mouseIsPressed) {
@@ -51,20 +51,57 @@ class TextBox {
     }
 
     this.input.size(this.varw, this.h);
+    if (mode == 2 && (this.hovering || this.moving || this.focusing)) {
+      noFill();
+      w.wrect(
+        this.x - this.marg,
+        this.y + this.marg,
+        this.varw + 2 * this.marg,
+        this.h + 2 * this.marg
+      );
+    }
+    noFill();
 
     w.wtextbox(this.input, this.x, this.y);
+
+    if (mode == 2) {
+      // this.input.style("border", "solid");
+      noFill();
+      w.wrect(this.x, this.y, this.varw, this.h);
+    } else {
+      this.input.style("border", "none");
+    }
+  }
+
+  checkPress() {
+    return (
+      w.mx > this.x - this.marg &&
+      w.mx < this.x + this.varw + this.marg &&
+      w.my < this.y + this.marg &&
+      w.my > this.y - this.h - this.marg
+    );
   }
 
   checkHover() {
     if (
-      w.mx > this.x &&
-      w.mx < this.x + this.varw &&
-      w.my < this.y &&
-      w.my > this.y - this.h
+      w.mx > this.x - this.marg &&
+      w.mx < this.x + this.varw + this.marg &&
+      w.my < this.y + this.marg &&
+      w.my > this.y - this.h - this.marg &&
+      !(
+        w.mx > this.x &&
+        w.mx < this.x + this.varw &&
+        w.my < this.y &&
+        w.my > this.y - this.h
+      )
     ) {
       this.hovering = true;
     } else {
       this.hovering = false;
     }
+  }
+
+  delete() {
+    this.input.remove();
   }
 }
