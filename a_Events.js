@@ -11,9 +11,9 @@ function mousePressed() {
   focus = false;
 
   for (var tb of Object.values(tbs)) {
-    if (tb.checkPress()) {
-      mode = 2;
-    }
+    // if (tb.checkPress()) {
+    //   mode = 2;
+    // }
     tb.focusing = false;
   }
 

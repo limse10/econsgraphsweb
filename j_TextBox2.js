@@ -24,11 +24,7 @@ class TextBox {
     //    println("________________________________________");
 
     this.checkHover();
-    if (this.hovering) {
-      document.body.style.cursor = "move";
-    } else {
-      document.body.style.cursor = "default";
-    }
+
     if (this.focusing) {
       mode = 2;
       if (mouseIsPressed) {
@@ -60,16 +56,21 @@ class TextBox {
         this.h + 2 * this.marg
       );
     }
+    strokeWeight(2);
     noFill();
-
     w.wtextbox(this.input, this.x, this.y);
 
+    console.log(this.x, this.y);
     if (mode == 2) {
-      // this.input.style("border", "solid");
+      this.input.style("display", "block");
       noFill();
       w.wrect(this.x, this.y, this.varw, this.h);
     } else {
-      this.input.style("border", "none");
+      this.input.style("display", "none");
+      noStroke();
+      fill(0);
+      textAlign(LEFT, TOP);
+      w.write(this.input.value(), this.x + 2, this.y - 4);
     }
   }
 

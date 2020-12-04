@@ -52,7 +52,6 @@ function new_diagram() {
 }
 
 function render(bg, svg) {
-  document.body.style.cursor = "default";
   background(bg);
 
   for (var i = fills.length - 1; i >= 0; i--) {
@@ -76,9 +75,15 @@ function render(bg, svg) {
     }
   }
 
+  document.body.style.cursor = "default";
+
   for (var tb of Object.values(tbs)) {
     tb.render();
+    if (tb.hovering && mode == 2) {
+      document.body.style.cursor = "move";
+    }
   }
+
   if (!svg) {
     main.render();
     for (var c of Object.values(subs)) {
@@ -458,6 +463,7 @@ function deleteFill() {
 }
 
 function deleteText() {
+  document.body.style.cursor = "default";
   for (var i = tbs.length - 1; i >= 0; i--) {
     if (tbs[i].focusing) {
       tbs[i].delete();
