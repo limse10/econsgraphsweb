@@ -60,7 +60,6 @@ class TextBox {
     noFill();
     w.wtextbox(this.input, this.x, this.y);
 
-    console.log(this.x, this.y);
     if (mode == 2) {
       this.input.style("display", "block");
       noFill();
