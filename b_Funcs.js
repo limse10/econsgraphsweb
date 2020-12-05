@@ -492,6 +492,7 @@ function deleteLine() {
 function deleteFill() {
   for (var i = fills.length - 1; i >= 0; i--) {
     if (fills[i].focusing) {
+      fills[i].delete();
       fills = del(fills, i);
     }
   }

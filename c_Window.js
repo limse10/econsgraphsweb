@@ -115,6 +115,9 @@ class Window {
   wtextbox(input, x, y) {
     input.position(this.x + 3 * this.m + x, height - this.m - y);
   }
+  colorpicker(cp, x, y) {
+    cp.position(this.x + 3 * this.m + x, height - this.m - y);
+  }
   write(txt, x, y) {
     text(txt, this.x + 3 * this.m + x, height - this.m - y);
   }

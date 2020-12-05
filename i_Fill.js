@@ -8,7 +8,7 @@ class Fill {
     this.alpha = 127;
     this.alpha2 = 200;
     this.suicide = false;
-    console.log(ps);
+    this.colorpicking = false;
   }
 
   render() {
@@ -40,8 +40,28 @@ class Fill {
       console.error(e);
       this.suicide = true;
     }
+
+    if (this.focusing && !this.colorpicking) {
+      this.cp = createColorPicker("#e66465");
+      this.cp.size(u / 3, u / 3);
+      this.cp.elt.onchange = () => this.updateColor();
+      w.colorpicker(this.cp, w.mx, w.my);
+      this.colorpicking = true;
+    }
+    if (!this.focusing && !!this.cp) {
+      this.cp.remove();
+      this.colorpicking = false;
+    }
   }
 
+  updateColor() {
+    this.c = this.cp.color();
+    this.cp.remove();
+    this.colorpicking = false;
+  }
+  // renderColorPicker() {
+  //   w.wrect(w.mx, w.my, u, u);
+  // }
   checkHover() {
     if (this.inside([w.mx, w.my]) && int(mode) == 3 && mode != 3.1) {
       this.hovering = true;
@@ -154,5 +174,9 @@ class Fill {
       t += 0.005;
     }
     return ps;
+  }
+
+  delete() {
+    this.cp.remove();
   }
 }

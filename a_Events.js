@@ -8,7 +8,6 @@ function doubleClicked() {
 }
 
 function mousePressed() {
-  console.log(fillpts);
   focus = false;
 
   for (var tb of Object.values(tbs)) {
@@ -208,6 +207,10 @@ function mousePressed() {
           focus = false;
         }
       }
+    }
+  } else {
+    for (var f of Object.values(fills)) {
+      f.focusing = false;
     }
   }
 
