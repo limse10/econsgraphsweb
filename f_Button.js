@@ -15,7 +15,7 @@ class Button {
     this.type = type;
     this.icon = icon;
     this.mode = mode;
-    this.c3 = 150;
+    this.c3 = 130;
     this.textsize = 16;
   }
 
