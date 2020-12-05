@@ -17,7 +17,7 @@ let labels2 = ["Auto Add\nText Boxes", "+1 Text Box", "Delete Text"];
 let sub3 = new Array(2);
 let labels3 = ["Select Area", "Delete Shade"];
 let sub4 = new Array(3);
-let labels4 = ["Clear", "Export PNG\n(not ready)", "Export SVG"];
+let labels4 = ["Clear", "Export PNG", "Export SVG"];
 let colorbuttons = new Array(6);
 let colors;
 

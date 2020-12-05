@@ -32,12 +32,7 @@ function setClipboard(svg) {
         var item = new ClipboardItem({
           "image/svg+xml": blob,
         });
-        navigator.clipboard.write([item]).then(
-          function () {},
-          function (error) {
-            console.log(error);
-          }
-        );
+        navigator.clipboard.write([item]);
       } else {
       }
     });

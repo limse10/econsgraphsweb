@@ -132,8 +132,6 @@ function mousePressed() {
     deleteFill();
   }
 
- 
-
   if (mains[0].hovered) {
     //export button
     mode = -1;
@@ -146,6 +144,9 @@ function mousePressed() {
     //render(255, false);
     //PImage crop = get(int(w.x+u/2), int(w.y+u/2), int(w.w), int(w.h));
     //crop.save("Diagrams/" + "diagram-" + imageCount + ".png");
+    exporting = true;
+    render(255, true);
+    saveCanvas("diagram", "png");
   }
 
   if (subs[4].buttons[2].hovered) {
@@ -153,11 +154,12 @@ function mousePressed() {
     svg_download = svg.writeToSVG();
     download("diagram.svg", svg_download);
 
-    //setClipboard(svg);
-
+    // setClipboard(svg);
     //beginRecord(SVG, "Diagrams/"+"diagram-" + imageCount+".svg");
-    //exporting=true;
-    //render(255, true);
+    // exporting = true;
+    // render(255, true);
+    // saveCanvas("diagram", "png");
+
     //endRecord();
     //exporting=false;
     //svg.writeToSVG("Diagrams/"+"diagram-"+ imageCount+".svg");
