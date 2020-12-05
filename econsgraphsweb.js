@@ -14,8 +14,8 @@ let sub1 = new Array(0);
 let labels1 = ["Add/Remove\nFree Points"];
 let sub2 = new Array(3);
 let labels2 = ["Auto Add\nText Boxes", "+1 Text Box", "Delete Text"];
-let sub3 = new Array(3);
-let labels3 = ["Select Area", "Colour\n(not ready)", "Delete Shade"];
+let sub3 = new Array(2);
+let labels3 = ["Select Area", "Delete Shade"];
 let sub4 = new Array(3);
 let labels4 = ["Clear", "Export PNG\n(not ready)", "Export SVG"];
 let colorbuttons = new Array(6);
@@ -97,12 +97,6 @@ function setup() {
   subs[2] = new Container(sub2, labels2, null, SUB);
   subs[3] = new Container(sub3, labels3, null, SUB);
   subs[4] = new Container(sub4, labels4, null, SUB);
-
-  //  for (let i=0; i<colors.length; i++) {
-  //    colorbuttons[i]=new Button(colors[i], subs[3].buttons[1], i);
-  //    colorbuttons[i].visible=false;
-  //  }
-  // subs[3].buttons[1].bs=colorbuttons;
 
   let tempy = new Array(2);
   tempy[0] = new createVector(0, 0);

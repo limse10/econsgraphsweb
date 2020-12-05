@@ -11,6 +11,7 @@ class SVG {
     this.fileheight = int(w.h + u / 2);
     this.beginSVG();
     this.renderAxes();
+    this.renderFills();
     this.renderLines();
     this.renderText();
     this.endSVG();
@@ -252,6 +253,21 @@ class SVG {
       this.file = append(this.file, "</text>");
     }
     this.file = append(this.file, "</g>");
+  }
+
+  renderFills() {
+    for (var f of Object.values(fills)) {
+      let polycolor = `${f.c.levels[0]},${f.c.levels[1]},${f.c.levels[2]}`;
+      console.log(polycolor);
+      let polypoints = "";
+      for (var p of Object.values(f.psv)) {
+        polypoints += this.toAbs(p.x, 0) + "," + this.toAbs(p.y, 1) + " ";
+      }
+      this.file = append(
+        this.file,
+        `<polygon points="${polypoints}" style="fill:rgb(${polycolor});fill-opacity:50%;stroke-width:0" />`
+      );
+    }
   }
 
   endSVG() {

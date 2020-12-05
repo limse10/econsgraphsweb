@@ -128,40 +128,11 @@ function mousePressed() {
     }
   }
 
-  if (subs[3].buttons[2].hovered) {
+  if (subs[3].buttons[1].hovered) {
     deleteFill();
   }
 
-  //if (subs[3].buttons[1].hovered) {
-
-  //  if (!subs[3].buttons[1].pressed) {
-  //    subs[3].buttons[1].pressed = true;
-  //    for (var b of Object.values(subs[3].buttons[1].bs)) {
-  //      b.visible=true;
-  //      mode=3.2;
-  //    }
-  //  } else if (subs[3].buttons[1].pressed) {
-  //    subs[3].buttons[1].pressed = false;
-  //    for (var b of Object.values(subs[3].buttons[1].bs)) {
-  //      b.visible=false;
-  //      mode=3;
-  //    }
-  //  }
-  //} else {
-  //  subs[3].buttons[1].pressed = false;
-  //  for (var b of Object.values(subs[3].buttons[1].bs)) {
-  //    b.visible=false;
-  //  }
-  //}
-
-  //for (var b of Object.values(subs[3].buttons[1].bs)) {
-  //  if (mode==3.2) {
-  //    if (b.hovered) {
-  //      mode=3.3;
-  //      fillcol=b.c;
-  //    }
-  //  }
-  //}
+ 
 
   if (mains[0].hovered) {
     //export button
@@ -202,7 +173,7 @@ function mousePressed() {
           mode = 3;
         }
       } else {
-        if (!subs[3].buttons[2].hovered) {
+        if (!subs[3].buttons[1].hovered) {
           f.focusing = false;
           focus = false;
         }
