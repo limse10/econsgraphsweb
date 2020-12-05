@@ -122,11 +122,11 @@ function endfill() {
     p.shading = false;
   }
   tempfill = null;
+  fillpts = new Array(0);
   mode = 3;
 }
 
 function generateTextBoxes() {
-  console.log(points);
   for (var p of Object.values(points)) {
     if (!(p.x == 0 || p.y == 0)) {
       for (var l of Object.values(p.ls)) {
@@ -204,7 +204,7 @@ function insert(input, insertion, index) {
 
 function cleanP(input) {
   var output = Array.from(input);
-
+  input = input.filter((n) => n !== undefined);
   for (var i = input.length - 1; i >= 0; i--) {
     for (var j = input.length - 1; j >= 0; j--) {
       if (i != j) {
@@ -212,9 +212,8 @@ function cleanP(input) {
           int(input[i].x) == int(input[j].x) &&
           int(input[i].y) == int(input[j].y)
         ) {
-          console.log("dupe");
           if (input[i].type < input[j].type) {
-            //output=output.splice(j, 1);
+            output = output.splice(j, 1);
           } else {
             output = output.splice(i, 1);
           }
@@ -222,7 +221,6 @@ function cleanP(input) {
       }
     }
   }
-  console.log(output);
   return output;
 }
 
@@ -237,17 +235,20 @@ function sortP(input) {
   }
   var xbar = xt / size;
   var ybar = yt / size;
+  // w.wcircle(xbar, ybar, 10);
   var angles = new Array(size);
   for (var i = 0; i < size; i++) {
     angles[i] = atan2(input[i].y - ybar, input[i].x - xbar);
+    // w.wline(xbar, ybar, input[i].x, input[i].y);
   }
-  var sortedangles = sort(angles);
+  var sortedangles = sort([...angles]);
   for (var i = 0; i < sortedangles.length; i++) {
-    for (var j = 0; j < angles.length; j++) {
-      if (sortedangles[i] == angles[j]) {
-        output[i] = input[j];
-      }
-    }
+    // for (var j = 0; j < angles.length; j++) {
+    //   if (sortedangles[i] == angles[j]) {
+    //     output[i] = input[j];
+    //   }
+    // }
+    output[i] = input[angles.indexOf(sortedangles[i])];
   }
 
   return output;

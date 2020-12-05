@@ -8,6 +8,7 @@ function doubleClicked() {
 }
 
 function mousePressed() {
+  console.log(fillpts);
   focus = false;
 
   for (var tb of Object.values(tbs)) {
@@ -305,26 +306,24 @@ function mousePressed() {
       }
     }
 
-    var fillpts = new Array(0);
+    // var fillpts = new Array(0);
     for (var p of Object.values(points)) {
       for (var x of Object.values(p.ps)) {
-        if (x.shading) {
+        if (x.shading && !fillpts.includes(x)) {
           fillpts = append(fillpts, x);
+          break;
         }
       }
-      if (p.shading) {
+      if (p.shading && !fillpts.includes(p)) {
         fillpts = append(fillpts, p);
+        break;
       }
     }
     if (fillpts.length > 2) {
       var f = new Fill(sortP(fillpts));
-
       tempfill = f;
     }
-
-    console.log(tempfill);
-
-    fillpts = new Array(0);
+    // fillpts = new Array(0);
   }
 
   if (mode == 0) {

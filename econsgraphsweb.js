@@ -1,13 +1,7 @@
 let svg = new SVG();
 
 let mains = new Array(5);
-let labels = [
-  "FILE",
-  "LINES",
-  "POINTS",
-  "TEXT",
-  "SHADING\n(not working properly)",
-];
+let labels = ["FILE", "LINES", "POINTS", "TEXT", "SHADING"];
 let sub0 = new Array(5);
 let labels0 = [
   "Add Line",
