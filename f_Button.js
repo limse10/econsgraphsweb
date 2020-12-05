@@ -16,6 +16,7 @@ class Button {
     this.icon = icon;
     this.mode = mode;
     this.c3 = 150;
+    this.textsize = 16;
   }
 
   //Button(color c, Button parent, int i) {
@@ -47,13 +48,16 @@ class Button {
         }
         if (int(mode) == this.mode) {
           fill(this.c3);
+          this.textsize = 18;
+        } else {
+          this.textsize = 16;
         }
         if (this.type == MAIN) {
           noStroke();
           strokeWeight(2);
           ellipse(this.x1, this.y1, this.d, this.d);
 
-          textSize(16);
+          textSize(this.textsize);
           textAlign(CENTER, CENTER);
           fill(0);
           text(this.t, this.x1, this.y1 + 0.7 * this.d);
