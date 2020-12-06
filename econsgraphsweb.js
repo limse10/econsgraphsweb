@@ -113,7 +113,26 @@ function setup() {
 }
 
 function draw() {
-  // rect(100,100,100,100);
+  background(bg);
 
-  render(bg, false);
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    renderMobile();
+  } else {
+    render(bg, false);
+  }
+}
+
+function renderMobile() {
+  textAlign(CENTER, CENTER);
+  textSize(20);
+  noStroke();
+  text(
+    "this app sucks on mobile\nbc im bad at programming :<\n\nplease view on desktop instead :)",
+    width / 2,
+    height / 3
+  );
 }
