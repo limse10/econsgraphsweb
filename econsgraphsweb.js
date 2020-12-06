@@ -62,7 +62,19 @@ let bg;
 let alpha = 127;
 let alpha2 = 200;
 
+let mobile = false;
+
 function setup() {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    mobile = true;
+  } else {
+    mobile = false;
+  }
+
   var mainicons = [];
   for (var i = 0; i < 5; i++) {
     mainicons[i] = loadImage("icons/main/" + str(i) + ".png");
@@ -79,7 +91,11 @@ function setup() {
   createCanvas(int(window.innerWidth), int(window.innerHeight - 50));
   //fullScreen();
   //surface.setResizable(true);
-  u = height / 10;
+  if (mobile) {
+    u = width / 10;
+  } else {
+    u = height / 10;
+  }
   bg = color(230);
   textFont("Arial");
 
@@ -115,12 +131,9 @@ function setup() {
 function draw() {
   background(bg);
 
-  if (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    )
-  ) {
+  if (mobile) {
     renderMobile();
+    // render(bg, false);
   } else {
     render(bg, false);
   }
