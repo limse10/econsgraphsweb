@@ -7,7 +7,24 @@ function doubleClicked() {
   }
 }
 
+// function touchEnded() {
+//   if (!mouseIsPressed) {
+//     for (var l of Object.values(lines)) {
+//       l.focusing = false;
+//       // console.log(l);
+//     }
+//   }
+// }
+function touchStarted() {
+  press();
+}
 function mousePressed() {
+  if (!mobile) {
+    press();
+  }
+}
+function press() {
+  render(bg, false);
   focus = false;
 
   for (var tb of Object.values(tbs)) {
@@ -16,6 +33,13 @@ function mousePressed() {
     // }
     tb.focusing = false;
   }
+  // for (var l of Object.values(lines)) {
+  //   // if (tb.checkPress()) {
+  //   //   mode = 2;
+  //   // }
+  //   l.focusing = false;
+  //   console.log(l);
+  // }
 
   if (tempfill != null && mode != 3.1) {
     endfill();
@@ -195,6 +219,8 @@ function mousePressed() {
           k.focusing = false;
         }
         l.focusing = true;
+        console.log(l);
+
         focus = true;
         for (var i = 0; i < l.p.length; i++) {
           l.transoff[i].x = w.mx - l.p[i].x;

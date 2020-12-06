@@ -45,17 +45,17 @@ function new_diagram() {
   fillpts = new Array(0);
   tbs = new Array(0);
 }
-function touchEnded() {
-  console.log("yeeet");
-  if (mobile) {
-    focus = false;
-    for (var l of Object.values(lines)) {
-      if (l.focusing) {
-        l.focusing = false;
-      }
-    }
-  }
-}
+// function touchEnded() {
+//   console.log("yeeet");
+//   if (mobile) {
+//     focus = false;
+//     for (var l of Object.values(lines)) {
+//       if (l.focusing) {
+//         l.focusing = false;
+//       }
+//     }
+//   }
+// }
 function render(bg, svg) {
   background(bg);
 

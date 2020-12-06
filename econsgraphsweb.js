@@ -132,8 +132,8 @@ function draw() {
   background(bg);
 
   if (mobile) {
-    renderMobile();
-    // render(bg, false);
+    // renderMobile();
+    render(bg, false);
   } else {
     render(bg, false);
   }
