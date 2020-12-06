@@ -29,13 +29,13 @@ input {
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: rgb(167, 167, 167);
   color: black;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #4caf50;
+  background-color: #0e72a0;
   color: white;
 }
 
