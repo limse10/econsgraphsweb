@@ -76,7 +76,7 @@ function setup() {
     color(255, 255, 0),
     color(255, 0, 255),
   ];
-  createCanvas(1200, 800);
+  createCanvas(int(window.innerWidth), int(window.innerHeight - 50));
   //fullScreen();
   //surface.setResizable(true);
   u = height / 10;

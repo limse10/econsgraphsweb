@@ -105,6 +105,7 @@ function mousePressed() {
         tb.yoff = w.my - tb.y;
         tb.focusing = true;
         focus = true;
+        console.log(tb);
       } else {
         tb.focusing = false;
         focus = false;

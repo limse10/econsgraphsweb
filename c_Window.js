@@ -17,7 +17,7 @@ class Window {
     if (!exporting) {
       fill(0);
       textAlign(TOP, RIGHT);
-      text(this.mx + ", " + this.my, u, height - u / 5);
+      text(int(this.mx) + ", " + int(this.my), u, height - u / 5);
     }
   }
 
