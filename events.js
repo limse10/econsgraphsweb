@@ -22,12 +22,15 @@ function mousePressed() {
   }
 
   if (mains[1].hovered) {
+    // line mode button
     mode = 0;
   }
   if (subs[0].buttons[4].hovered) {
+    // delete line button
     deleteLine();
   }
   if (subs[0].buttons[0].hovered) {
+    // add line button
     var p = new Array(2);
     if (lines.length == 0) {
       p[0] = new createVector(0, 500);
@@ -43,6 +46,7 @@ function mousePressed() {
     lines = append(lines, l);
   }
   if (subs[0].buttons[1].hovered) {
+    // add curve button
     var p = new Array(3);
 
     if (lines.length == 2) {
@@ -62,6 +66,7 @@ function mousePressed() {
     lines = append(lines, l);
   }
   if (subs[0].buttons[2].hovered) {
+    // add cubic bezier button
     var p = new Array(4);
     p[0] = new createVector(100, 400);
     p[1] = new createVector(500, 300);
@@ -71,6 +76,7 @@ function mousePressed() {
     lines = append(lines, l);
   }
   if (subs[0].buttons[3].hovered) {
+    // add AS button
     var p = new Array(2);
     p[0] = new createVector(100, 100);
     p[1] = new createVector(500, 500);
@@ -78,23 +84,28 @@ function mousePressed() {
     lines = append(lines, l);
   }
   if (mains[2].hovered) {
+    // points mode button
     mode = 1;
     calculatePoints();
   }
 
   if (mains[3].hovered) {
+    // textbox mode button
     mode = 2;
   }
 
   if (subs[2].buttons[0].hovered) {
+    // auto add text box button
     generateTextBoxes();
   }
   if (subs[2].buttons[1].hovered) {
+    // add text box button
     var tb = new TextBox(-90, 570, u, u / 3);
     tbs = append(tbs, tb);
   }
 
   if (subs[2].buttons[2].hovered) {
+    // delete text box button
     deleteText();
   }
 
@@ -113,9 +124,11 @@ function mousePressed() {
   }
 
   if (subs[3].buttons[0].hovered) {
+    // select area mode button
     mode = 3.1;
   }
   if (mains[4].hovered) {
+    // fill mode button
     /////////////shading
     mode = 3;
     calculatePoints();
@@ -129,6 +142,7 @@ function mousePressed() {
   }
 
   if (subs[3].buttons[1].hovered) {
+    // delete fill button
     deleteFill();
   }
 
@@ -137,9 +151,11 @@ function mousePressed() {
     mode = -1;
   }
   if (subs[4].buttons[0].hovered) {
+    // clear button
     new_diagram();
   }
   if (subs[4].buttons[1].hovered) {
+    // export as png
     imageCount++;
     //render(255, false);
     //PImage crop = get(int(w.x+u/2), int(w.y+u/2), int(w.w), int(w.h));
@@ -150,6 +166,7 @@ function mousePressed() {
   }
 
   if (subs[4].buttons[2].hovered) {
+    // export as svg
     imageCount++;
     svg_download = svg.writeToSVG();
     download("diagram.svg", svg_download);

@@ -107,7 +107,7 @@ function setup() {
 
   w = new Window(1.5 * u, u, width - 1.5 * u, height - u, u / 2);
 
-  main = new Container(mains, labels, mainicons, 0);
+  main = new Container(mains, labels, mainicons, 0); // creates container for main buttons
   subs[0] = new Container(sub0, labels0, null, SUB);
   subs[1] = new Container(sub1, labels1, null, SUB);
   subs[2] = new Container(sub2, labels2, null, SUB);
