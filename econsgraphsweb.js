@@ -88,7 +88,7 @@ function setup() {
     color(255, 255, 0),
     color(255, 0, 255),
   ];
-  createCanvas(int(window.innerWidth), int(window.innerHeight - 50));
+  createCanvas(min(int(window.innerWidth), 1300), int(window.innerHeight - 50));
   //fullScreen();
   //surface.setResizable(true);
   if (mobile) {

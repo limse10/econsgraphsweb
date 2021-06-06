@@ -12,6 +12,13 @@ input {
   /* text-align: center; */
 }
 
+canvas {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  /* text-align: center; */
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;
