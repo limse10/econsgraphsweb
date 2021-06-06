@@ -1,3 +1,3 @@
 # econsgraphsweb
 
-Draw econs graphs quickly and easily!
+Draw econs graphs quickly and easily
