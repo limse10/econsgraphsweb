@@ -20,10 +20,10 @@ class Line {
     this.curr = new createVector(0, 0);
     this.next = new createVector(0, 0);
     this.exselected=true;
-    this.c1 = color(0, 127, 255);
+    this.c1 = color(255, 200, 71);
     this.c2 = color(0, 0, 255);
-    this.c3 = color(255, 20,20);
-
+    this.c3 = color(255, 160, 71);
+    this.newColorline = 80;
     this.linept = 1.5;
     this.dotpt = 0.75;
   }
@@ -52,7 +52,7 @@ class Line {
         }
 
 
-        stroke(0);
+        stroke(this.newColorline);
         strokeWeight(this.linept);
 
         if (this.focusing&&mode==0) {
@@ -112,11 +112,12 @@ class Line {
         ((sq(w.mx-this.p[1].x+this.asr)+sq(w.my-this.p[0].y-this.asr))>sq(this.asr-0.5*this.r)&&(sq(w.mx-this.p[1].x+this.asr)+sq(w.my-this.p[0].y-this.asr))<sq(this.asr+0.5*this.r))&&w.mx>this.p[1].x-this.asr&&w.my<this.p[0].y+this.asr) {
         this.hovering = true;
       }
-      stroke(0);
+      stroke(this.newColorline);
       strokeWeight(this.linept);
       if (this.focusing&&mode==0) {
         stroke(this.c1);
         strokeWeight(this.linept);
+        
       }
       w.wline(this.p[0].x, this.p[0].y, this.p[1].x-this.asr, this.p[0].y);
       w.wline(this.p[1].x, this.p[1].y, this.p[1].x, this.p[0].y+this.asr);
@@ -161,7 +162,7 @@ class Line {
         }
       }
       strokeWeight(this.dotpt);
-      stroke(0);
+      stroke(this.newColorline);
       if (this.hovering&&mode==1) {
         stroke(this.c1);
       }

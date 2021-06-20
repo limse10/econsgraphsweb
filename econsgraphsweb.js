@@ -64,6 +64,14 @@ let alpha2 = 200;
 
 let mobile = false;
 
+let mainButtonContainer;
+let subMainLineMode;
+let subMainTextMode;
+let subMainShadeMode;
+let currContainerToShow;
+//test implement interactions - Joen :>
+let testButtonInt;
+
 function setup() {
   if (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -96,7 +104,7 @@ function setup() {
   } else {
     u = height / 10;
   }
-  bg = color(230);
+  bg = color(245);
   textFont("Arial");
 
   background(bg);
@@ -107,8 +115,8 @@ function setup() {
 
   w = new Window(1.5 * u, u, width - 1.5 * u, height - u, u / 2);
 
-  main = new Container(mains, labels, mainicons, 0); // creates container for main buttons
-  subs[0] = new Container(sub0, labels0, null, SUB);
+ //main = new Container(mains, labels, mainicons, 0); // creates container for main buttons
+ subs[0] = new Container(sub0, labels0, null, SUB);
   subs[1] = new Container(sub1, labels1, null, SUB);
   subs[2] = new Container(sub2, labels2, null, SUB);
   subs[3] = new Container(sub3, labels3, null, SUB);
@@ -126,16 +134,23 @@ function setup() {
   axes[1] = yaxis;
   mode = -2;
   calculatePoints();
+  mainButtonContainer = new newButtonContainer('visbile',"mainButtonContainer","flexWrapContainerMainButton",attributeListMainButton,'newMainButtonPreset')
+  subMainLineMode = new newButtonContainer('hidden','subMainLineContainer','flexWrapContainerSubMain',attributeListLineMode, 'newSubMainPreset');
+  subMainTextMode =new newButtonContainer('hidden','subMainLineContainer','flexWrapContainerSubMain',attributeListTextMode, 'newSubMainPreset');
+  subMainShadeMode =new newButtonContainer('hidden','subMainLineContainer','flexWrapContainerSubMain',attributeListShadeMode, 'newSubMainPreset');
+  background(bg);
+  
 }
 
 function draw() {
-  background(bg);
-
+  
+  resizeCanvas(windowWidth, windowHeight);
   if (mobile) {
     renderMobile();
     // render(bg, false);
   } else {
     render(bg, false);
+    renderSubModeButtons();
   }
 }
 
@@ -148,4 +163,10 @@ function renderMobile() {
     width / 2,
     height / 3
   );
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  
 }

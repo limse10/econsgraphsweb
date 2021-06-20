@@ -90,7 +90,7 @@ function render(bg, svg) {
   }
 
   if (!svg) {
-    main.render();
+   // main.render();
     for (var c of Object.values(subs)) {
       //console.log(subs);
       for (var b of Object.values(c.buttons)) {

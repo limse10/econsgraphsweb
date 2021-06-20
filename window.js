@@ -17,7 +17,7 @@ class Window {
     if (!exporting) {
       fill(0);
       textAlign(TOP, RIGHT);
-      text(int(this.mx) + ", " + int(this.my), u, height - u / 5);
+      //text(int(this.mx) + ", " + int(this.my), u, height - u / 5);
     }
   }
 
@@ -124,5 +124,10 @@ class Window {
 
   wvertex(x, y) {
     vertex(this.x + 3 * this.m + x, height - this.m - y);
+  }
+  wNewPoint(x,y){
+    stroke(color(193, 111, 34))
+    fill(color(rgb(254, 207, 162)))
+    ellipse(x,y,10,10);
   }
 }
