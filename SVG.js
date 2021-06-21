@@ -258,7 +258,6 @@ class SVG {
   renderFills() {
     for (var f of Object.values(fills)) {
       let polycolor = `${f.c.levels[0]},${f.c.levels[1]},${f.c.levels[2]}`;
-      console.log(polycolor);
       let polypoints = "";
       for (var p of Object.values(f.psv)) {
         polypoints += this.toAbs(p.x, 0) + "," + this.toAbs(p.y, 1) + " ";

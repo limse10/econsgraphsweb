@@ -98,14 +98,15 @@ class Window {
   }
 
   warc(x1, y1, r) {
-    for (var x = x1; x < x1 + r; x += 2) {
-      this.wline(
-        x,
-        -sqrt(sq(r) - sq(x - x1)) + y1,
-        x + 2,
-        -sqrt(sq(r) - sq(x + 2 - x1)) + y1
-      );
-    }
+    noFill();
+    arc(
+      this.x + 3 * this.m + x1,
+      height - this.m - y1,
+      2 * r,
+      2 * r,
+      0,
+      HALF_PI
+    );
   }
   wpoint(x, y, r) {
     this.wline(x - r, y - r, x + r, y + r);
@@ -113,7 +114,7 @@ class Window {
   }
 
   wtextbox(input, x, y) {
-    input.position(this.x + 3 * this.m + x, height - this.m - y + 49);
+    input.position(this.x + 3 * this.m + x, height - this.m - y);
   }
   colorpicker(cp, x, y) {
     cp.position(this.x + 3 * this.m + x, height - this.m - y + 50);
@@ -125,9 +126,9 @@ class Window {
   wvertex(x, y) {
     vertex(this.x + 3 * this.m + x, height - this.m - y);
   }
-  wNewPoint(x,y){
-    stroke(color(193, 111, 34))
-    fill(color(rgb(254, 207, 162)))
-    ellipse(x,y,10,10);
+  wNewPoint(x, y) {
+    stroke(color(193, 111, 34));
+    fill(color(rgb(254, 207, 162)));
+    ellipse(x, y, 10, 10);
   }
 }

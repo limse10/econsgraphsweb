@@ -37,7 +37,6 @@ class TextBox {
       this.x = w.mx - this.xoff;
       this.y = w.my - this.yoff;
     }
-
     textSize(20);
     let twid = textWidth(this.input.value());
     if (twid < this.w - 20) {
@@ -69,7 +68,7 @@ class TextBox {
       noStroke();
       fill(0);
       textAlign(LEFT, TOP);
-      w.write(this.input.value(), this.x + 2, this.y - 4);
+      w.write(this.input.value(), this.x + 2, this.y - 6);
     }
   }
 

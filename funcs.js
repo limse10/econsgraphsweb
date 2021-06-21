@@ -28,7 +28,6 @@ function setClipboard(svg) {
         var blob = new Blob([svg], {
           type: "image/svg+xml",
         });
-        console.log(blob);
         var item = new ClipboardItem({
           "image/svg+xml": blob,
         });
@@ -46,7 +45,6 @@ function new_diagram() {
   tbs = new Array(0);
 }
 function touchEnded() {
-  console.log("yeeet");
   if (mobile) {
     focus = false;
     for (var l of Object.values(lines)) {
@@ -92,7 +90,6 @@ function render(bg, svg) {
   if (!svg) {
    // main.render();
     for (var c of Object.values(subs)) {
-      //console.log(subs);
       for (var b of Object.values(c.buttons)) {
         if (b) {
           b.render();
