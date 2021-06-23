@@ -1,4 +1,3 @@
-
 function doubleClicked() {
   if (mode == 3.1) {
     if (tempfill != null) {
@@ -22,9 +21,8 @@ function mousePressed() {
     endfill();
   }
 
-  
-// line mode button
-/*
+  // line mode button
+  /*
   if (mains[1].hovered) {
     
     mode = 0;
@@ -185,7 +183,6 @@ function mousePressed() {
   }
 */
 
-  
   if (mode == 2) {
     for (var tb of Object.values(tbs)) {
       if (tb.hovering && !focus) {
@@ -199,7 +196,6 @@ function mousePressed() {
       }
     }
   }
-
 
   if (int(mode) == 3) {
     for (var f of Object.values(fills)) {
@@ -222,11 +218,12 @@ function mousePressed() {
       f.focusing = false;
     }
   }
-
+  lineselected = null;
   focus = false;
   if (mode == 0) {
     for (var l of Object.values(lines)) {
       if (l.hovering && !focus) {
+        lineselected = l;
         for (var k of Object.values(lines)) {
           k.focusing = false;
         }
@@ -337,7 +334,7 @@ function mousePressed() {
     }
     // fillpts = new Array(0);
   }
-/*
+  /*
   if (mode == 0) {
 
     
@@ -532,4 +529,3 @@ function keyReleased() {
     keys[2] = false;
   }
 }
-

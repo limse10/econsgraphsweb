@@ -83,7 +83,12 @@ class Line {
           this.hovering = true;
         }
       }
-      if ((this.focusing || this.hovering) && mode == 0) {
+      console.log(lineselected, this);
+      if (
+        (this.focusing || this.hovering) &&
+        (lineselected == this || lineselected == null) &&
+        mode == 0
+      ) {
         if (this.n == 2) {
           strokeWeight(this.dotpt);
           stroke(127);
