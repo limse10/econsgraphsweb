@@ -88,7 +88,7 @@ function render(bg, svg) {
   }
 
   if (!svg) {
-   // main.render();
+    // main.render();
     for (var c of Object.values(subs)) {
       for (var b of Object.values(c.buttons)) {
         if (b) {
@@ -129,45 +129,45 @@ function endfill() {
 }
 
 function generateTextBoxes() {
-  for (var p of Object.values(points)) {
-    if (!(p.x == 0 || p.y == 0)) {
-      for (var l of Object.values(p.ls)) {
-        if (l.p[1].x == 0) {
-          var tb = new TextBox(l.p[1].x - 1.1 * u, l.p[1].y + u / 6, u, u / 3);
-        } else if (l.p[1].y == 0) {
-          var tb = new TextBox(l.p[1].x - u / 2, l.p[1].y - u / 10, u, u / 3);
-        }
-        tbs = append(tbs, tb);
-      }
-      for (var x of Object.values(p.ps)) {
-        if (x.selected) {
-          var tb = new TextBox(x.x - u / 2, x.y - u / 10, u, u / 3);
-          tbs = append(tbs, tb);
-          for (var k of Object.values(x.ls)) {
-            if (k.p[1].x == 0) {
-              var tb = new TextBox(
-                k.p[1].x - 1.1 * u,
-                k.p[1].y + u / 6,
-                u,
-                u / 3
-              );
-            } else if (l.p[1].y == 0) {
-              var tb = new TextBox(
-                k.p[1].x - u / 2,
-                k.p[1].y - u / 2.9,
-                u,
-                u / 3
-              );
-            }
-            tbs = append(tbs, tb);
-          }
-        }
-      }
+  // for (var p of Object.values(points)) {
+  //   if (!(p.x == 0 || p.y == 0)) {
+  //     for (var l of Object.values(p.ls)) {
+  //       if (l.p[1].x == 0) {
+  //         var tb = new TextBox(l.p[1].x - 1.1 * u, l.p[1].y + u / 6, u, u / 3);
+  //       } else if (l.p[1].y == 0) {
+  //         var tb = new TextBox(l.p[1].x - u / 2, l.p[1].y - u / 10, u, u / 3);
+  //       }
+  //       tbs = append(tbs, tb);
+  //     }
+  //     for (var x of Object.values(p.ps)) {
+  //       if (x.selected) {
+  //         var tb = new TextBox(x.x - u / 2, x.y - u / 10, u, u / 3);
+  //         tbs = append(tbs, tb);
+  //         for (var k of Object.values(x.ls)) {
+  //           if (k.p[1].x == 0) {
+  //             var tb = new TextBox(
+  //               k.p[1].x - 1.1 * u,
+  //               k.p[1].y + u / 6,
+  //               u,
+  //               u / 3
+  //             );
+  //           } else if (l.p[1].y == 0) {
+  //             var tb = new TextBox(
+  //               k.p[1].x - u / 2,
+  //               k.p[1].y - u / 2.9,
+  //               u,
+  //               u / 3
+  //             );
+  //           }
+  //           tbs = append(tbs, tb);
+  //         }
+  //       }
+  //     }
 
-      var tb = new TextBox(p.x - u / 2, p.y - u / 10, u, u / 3);
-      tbs = append(tbs, tb);
-    }
-  }
+  //     var tb = new TextBox(p.x - u / 2, p.y - u / 10, u, u / 3);
+  //     tbs = append(tbs, tb);
+  //   }
+  // }
 
   for (var l of Object.values(lines)) {
     var px = 0;
