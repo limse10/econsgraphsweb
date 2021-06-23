@@ -454,6 +454,26 @@ function calculatePoints() {
     var origin = new Point(2, xaxis, yaxis, NaN, NaN);
     points = append(points, origin);
   }
+
+  for (var i = points.length - 1; i >= 0; i--) {
+    let p1 = points[i];
+    for (var j = points.length - 1; j >= 0; j--) {
+      let p2 = points[j];
+      for (var k = p2.ps.length - 1; k >= 0; k--) {
+        let x = p2.ps[k];
+        // console.log(p1.x, p1.y, x.x, x.y, dist(p1.x, p1.y, x.x, x.y));
+        if (dist(p1.x, p1.y, x.x, x.y) < (2 * u) / 3) {
+          for (var l = p2.ps.length - 1; l >= 0; l--) {
+            if (p2.ps[l].parent == p2.ps[k]) {
+              p2.ps = del(p2.ps, l);
+            }
+          }
+          p2.ps = del(p2.ps, k);
+        }
+      }
+    }
+  }
+  // console.log(points);
 }
 
 function deleteLine() {
