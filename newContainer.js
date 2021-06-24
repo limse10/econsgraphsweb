@@ -183,6 +183,7 @@ class newButtonContainer {
     this.css = cssPresetToUseButton;
     this.idMain = idContainer;
     //render last
+    
     this.thisContainer = this.render();
     this.thisContainer.style.visibility = defaultVis;
   }
@@ -204,7 +205,7 @@ class newButtonContainer {
     let currChar = this.list[key];
     let onclickFunc = currChar["func"];
     let innerIcon = currChar["icon"];
-    let buttonHtmlStr = `<button id=${key} onclick=${onclickFunc} class=${this.css}>${innerIcon}</button>`;
+    let buttonHtmlStr = `<button id=${key} onclick=${onclickFunc} onmouseover='makeTrue()' onmouseout='makeFalse()' class=${this.css}>${innerIcon}</button>`;
     return buttonHtmlStr;
   }
 
@@ -216,4 +217,10 @@ class newButtonContainer {
       this.thisContainer.style.visibility = "visible";
     }
   }
+}
+function makeTrue(){
+  buttonHighlight = true;
+}
+function makeFalse(){
+  buttonHighlight = false;
 }
