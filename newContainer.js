@@ -100,11 +100,19 @@ function findSpaceForLine(points) {
   }
   return points;
 }
+
+function wratio(ratio) {
+  return w.axis_width * ratio;
+}
+function hratio(ratio) {
+  return w.axis_height * ratio;
+}
+
 //Line Functions
 function addLine() {
   var p = new Array(2);
-  p[0] = new createVector(0, w.axis_height - 3 * w.m);
-  p[1] = new createVector(w.axis_height - 3 * w.m, 0);
+  p[0] = new createVector(0, hratio(0.7));
+  p[1] = new createVector(hratio(0.7), 0);
   p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
@@ -112,27 +120,27 @@ function addLine() {
 function addCurve() {
   var p = new Array(3);
 
-  p[0] = new createVector(w.m * 3, w.m * 11);
-  p[1] = new createVector(w.m * 6, w.m * 5);
-  p[2] = new createVector(w.m * 9, w.m * 11);
+  p[0] = new createVector(wratio(0.2), hratio(0.9));
+  p[1] = new createVector(wratio(0.4), hratio(0.4));
+  p[2] = new createVector(wratio(0.8), hratio(0.9));
   p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addBezier() {
   var p = new Array(4);
-  p[0] = new createVector(w.m * 2, w.m * 7);
-  p[1] = new createVector(w.m * 8, w.m * 6);
-  p[2] = new createVector(w.m * 5, w.m * 11);
-  p[3] = new createVector(w.m * 9, w.m * 10);
+  p[0] = new createVector(wratio(0.2), hratio(0.5));
+  p[1] = new createVector(wratio(0.5), hratio(0.3));
+  p[2] = new createVector(wratio(0.3), hratio(0.8));
+  p[3] = new createVector(wratio(0.7), hratio(0.7));
   p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addAS() {
   var p = new Array(2);
-  p[0] = new createVector(w.m * 2, w.m * 2);
-  p[1] = new createVector(w.m * 13, w.m * 13);
+  p[0] = new createVector(wratio(0.1), wratio(0.1));
+  p[1] = new createVector(wratio(0.9), wratio(0.9));
   p = findSpaceForLine(p);
   var l = new Line(1, p);
   lines = append(lines, l);
