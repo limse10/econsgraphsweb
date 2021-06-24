@@ -183,7 +183,7 @@ class newButtonContainer {
     this.css = cssPresetToUseButton;
     this.idMain = idContainer;
     //render last
-    
+
     this.thisContainer = this.render();
     this.thisContainer.style.visibility = defaultVis;
   }
@@ -218,9 +218,9 @@ class newButtonContainer {
     }
   }
 }
-function makeTrue(){
+function makeTrue() {
   buttonHighlight = true;
 }
-function makeFalse(){
+function makeFalse() {
   buttonHighlight = false;
 }
