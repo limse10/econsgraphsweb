@@ -82,54 +82,66 @@ function switchMode(modes) {
     }
   }
 }
+
+function findSpaceForLine(points) {
+  for (var l of Object.values(lines)) {
+    count = 0;
+    for (let i = 0; i < l.p.length; i++) {
+      if (l.p[i].equals(points[i])) {
+        count += 1;
+      }
+    }
+    if (count == points.length) {
+      for (let i = 0; i < points.length; i++) {
+        points[i].x += 50;
+      }
+      return findSpaceForLine(points);
+    }
+  }
+  return points;
+}
+
+function wratio(ratio) {
+  return w.axis_width * ratio;
+}
+function hratio(ratio) {
+  return w.axis_height * ratio;
+}
+
 //Line Functions
 function addLine() {
   var p = new Array(2);
-  if (lines.length == 0) {
-    p[0] = new createVector(0, 500);
-    p[1] = new createVector(600, 0);
-  } else if (lines.length == 1) {
-    p[0] = new createVector(0, 500);
-    p[1] = new createVector(300, 0);
-  } else {
-    p[0] = new createVector(100, 100);
-    p[1] = new createVector(500, 500);
-  }
+  p[0] = new createVector(0, hratio(0.7));
+  p[1] = new createVector(hratio(0.7), 0);
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addCurve() {
   var p = new Array(3);
 
-  if (lines.length == 2) {
-    p[0] = new createVector(50, 200);
-    p[1] = new createVector(150, 0);
-    p[2] = new createVector(380, 550);
-  } else if (lines.length == 3) {
-    p[0] = new createVector(180, 500);
-    p[1] = new createVector(280, 270);
-    p[2] = new createVector(480, 480);
-  } else {
-    p[0] = new createVector(180, 500);
-    p[1] = new createVector(280, 270);
-    p[2] = new createVector(480, 480);
-  }
+  p[0] = new createVector(wratio(0.2), hratio(0.9));
+  p[1] = new createVector(wratio(0.4), hratio(0.4));
+  p[2] = new createVector(wratio(0.8), hratio(0.9));
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addBezier() {
   var p = new Array(4);
-  p[0] = new createVector(100, 400);
-  p[1] = new createVector(500, 300);
-  p[2] = new createVector(150, 200);
-  p[3] = new createVector(300, 150);
+  p[0] = new createVector(wratio(0.2), hratio(0.5));
+  p[1] = new createVector(wratio(0.5), hratio(0.3));
+  p[2] = new createVector(wratio(0.3), hratio(0.8));
+  p[3] = new createVector(wratio(0.7), hratio(0.7));
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addAS() {
   var p = new Array(2);
-  p[0] = new createVector(100, 100);
-  p[1] = new createVector(500, 500);
+  p[0] = new createVector(wratio(0.1), wratio(0.1));
+  p[1] = new createVector(wratio(0.9), wratio(0.9));
+  p = findSpaceForLine(p);
   var l = new Line(1, p);
   lines = append(lines, l);
 }
@@ -187,7 +199,7 @@ class newButtonContainer {
     this.css = cssPresetToUseButton;
     this.idMain = idContainer;
     //render last
-    
+
     this.thisContainer = this.render();
     this.thisContainer.style.visibility = defaultVis;
   }
@@ -222,12 +234,13 @@ class newButtonContainer {
     }
   }
 }
-function makeTrue(){
+function makeTrue() {
   buttonHighlight = true;
 }
-function makeFalse(){
+function makeFalse() {
   buttonHighlight = false;
 }
+
 
 function selectedAesthetic(buttonID){
   let el = document.getElementById(buttonID)
@@ -263,3 +276,4 @@ function selectionLoop(IDcont, IDButton){
     }
   }
 }
+

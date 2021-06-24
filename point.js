@@ -41,9 +41,7 @@ class Point {
     } else {
       this.hovering = false;
     }
-    if (this.hovering) {
-      // console.log(this);
-    }
+
     if (this.exists || this.selected) {
       if (this.type == 0 || this.type == 1) {
         this.ls[0].p[0].x = this.x;

@@ -5,6 +5,8 @@ class Window {
     this.w = w;
     this.h = h;
     this.m = m;
+    this.axis_height;
+    this.axis_width;
     var mx, my;
     var axes;
   }
@@ -24,12 +26,33 @@ class Window {
   renderAxes() {
     strokeWeight(1.5);
     stroke(0);
-    this.wline(0, 0, 0, this.h - 3 * this.m);
-    this.wline(0, 0, this.w - 10 * this.m, 0);
-    this.wline(0, this.h - 3 * this.m, -this.m / 4, this.h - 3.5 * this.m);
-    this.wline(0, this.h - 3 * this.m, this.m / 4, this.h - 3.5 * this.m);
-    this.wline(this.w - 10 * this.m, 0, this.w - 10.5 * this.m, this.m / 4);
-    this.wline(this.w - 10 * this.m, 0, this.w - 10.5 * this.m, -this.m / 4);
+    this.axis_height = this.h - 3 * this.m;
+    this.axis_height =
+      this.axis_height < 5 * this.m ? 5 * this.m : this.axis_height;
+    this.axis_height =
+      this.axis_height > 15 * this.m ? 15 * this.m : this.axis_height;
+    this.axis_width = this.w - 10 * this.m;
+    this.axis_width =
+      this.axis_width < 5 * this.m ? 5 * this.m : this.axis_width;
+    this.axis_width =
+      this.axis_width > 15 * this.m ? 15 * this.m : this.axis_width;
+
+    this.wline(0, 0, 0, this.axis_height);
+    this.wline(0, 0, this.axis_width, 0);
+    this.wline(
+      0,
+      this.axis_height,
+      -this.m / 4,
+      this.axis_height - 0.5 * this.m
+    );
+    this.wline(
+      0,
+      this.axis_height,
+      this.m / 4,
+      this.axis_height - 0.5 * this.m
+    );
+    this.wline(this.axis_width, 0, this.axis_width - 0.5 * this.m, this.m / 4);
+    this.wline(this.axis_width, 0, this.axis_width - 0.5 * this.m, -this.m / 4);
   }
 
   createAxes() {
@@ -117,7 +140,7 @@ class Window {
     input.position(this.x + 3 * this.m + x, height - this.m - y);
   }
   colorpicker(cp, x, y) {
-    cp.position(this.x + 3 * this.m + x, height - this.m - y + 50);
+    cp.position(this.x + 3 * this.m + x, height - this.m - y);
   }
   write(txt, x, y) {
     text(txt, this.x + 3 * this.m + x, height - this.m - y);

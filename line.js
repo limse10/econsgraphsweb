@@ -83,7 +83,6 @@ class Line {
           this.hovering = true;
         }
       }
-      //console.log(lineselected, this);
       if (
         (this.focusing || this.hovering) &&
         (lineselected == this || lineselected == null) &&
