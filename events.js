@@ -229,7 +229,7 @@ function mousePressed() {
           k.focusing = false;
         }
         l.focusing = true;
-        console.log('focusing...')
+        
         focus = true;
         for (var i = 0; i < l.p.length; i++) {
           l.transoff[i].x = w.mx - l.p[i].x;
@@ -237,7 +237,7 @@ function mousePressed() {
         }
 
       } else {
-        console.log('ahhh')
+        
         l.focusing = false;
         focus = false;
       }
