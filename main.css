@@ -83,6 +83,7 @@ canvas {
   background: transparent;
   outline: none;
   border: none;
+  padding:5px;
 }
 
 .newSubMainPreset {
@@ -115,11 +116,19 @@ canvas {
   color: rgb(193, 111, 34);
 }
 
+.newMainButtonPreset p{
+  margin-top:2px;
+  font-weight: bold;
+  font-family: "Nunito";
+  color: rgb(193, 111, 34);
+  visibility: hidden;
+}
+/*
 .newMainButtonPreset:hover {
   transition-duration: 0.5s;
   background: rgb(240, 218, 186);
 }
-
+*/
 .flexWrapContainerMainButton {
   display: flex;
   flex-wrap: wrap;
@@ -137,6 +146,7 @@ canvas {
 }
 
 #mainButtonContainer {
+  padding-top: 15px;
   margin: 10px;
   position: fixed;
   z-index: 5;
