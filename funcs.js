@@ -475,11 +475,8 @@ function calculatePoints() {
 }
 
 function deleteLine() {
-  
   for (var i = lines.length - 1; i >= 0; i--) {
-    console.log(lines[i].focusing)
     if (lines[i].focusing) {
-
       for (var j = points.length - 1; j >= 0; j--) {
         for (var f = fills.length - 1; f >= 0; f--) {
           for (var p of Object.values(fills[f].ps)) {
@@ -508,7 +505,6 @@ function deleteLine() {
         }
       }
       lines = del(lines, i);
-
     }
   }
 }

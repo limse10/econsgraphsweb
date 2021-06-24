@@ -82,54 +82,58 @@ function switchMode(modes) {
     }
   }
 }
+
+function findSpaceForLine(points) {
+  for (var l of Object.values(lines)) {
+    count = 0;
+    for (let i = 0; i < l.p.length; i++) {
+      if (l.p[i].equals(points[i])) {
+        count += 1;
+      }
+    }
+    if (count == points.length) {
+      for (let i = 0; i < points.length; i++) {
+        points[i].x += 50;
+      }
+      return findSpaceForLine(points);
+    }
+  }
+  return points;
+}
 //Line Functions
 function addLine() {
   var p = new Array(2);
-  if (lines.length == 0) {
-    p[0] = new createVector(0, 500);
-    p[1] = new createVector(600, 0);
-  } else if (lines.length == 1) {
-    p[0] = new createVector(0, 500);
-    p[1] = new createVector(300, 0);
-  } else {
-    p[0] = new createVector(100, 100);
-    p[1] = new createVector(500, 500);
-  }
+  p[0] = new createVector(0, w.axis_height - 3 * w.m);
+  p[1] = new createVector(w.axis_height - 3 * w.m, 0);
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addCurve() {
   var p = new Array(3);
 
-  if (lines.length == 2) {
-    p[0] = new createVector(50, 200);
-    p[1] = new createVector(150, 0);
-    p[2] = new createVector(380, 550);
-  } else if (lines.length == 3) {
-    p[0] = new createVector(180, 500);
-    p[1] = new createVector(280, 270);
-    p[2] = new createVector(480, 480);
-  } else {
-    p[0] = new createVector(180, 500);
-    p[1] = new createVector(280, 270);
-    p[2] = new createVector(480, 480);
-  }
+  p[0] = new createVector(w.m * 3, w.m * 11);
+  p[1] = new createVector(w.m * 6, w.m * 5);
+  p[2] = new createVector(w.m * 9, w.m * 11);
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addBezier() {
   var p = new Array(4);
-  p[0] = new createVector(100, 400);
-  p[1] = new createVector(500, 300);
-  p[2] = new createVector(150, 200);
-  p[3] = new createVector(300, 150);
+  p[0] = new createVector(w.m * 2, w.m * 7);
+  p[1] = new createVector(w.m * 8, w.m * 6);
+  p[2] = new createVector(w.m * 5, w.m * 11);
+  p[3] = new createVector(w.m * 9, w.m * 10);
+  p = findSpaceForLine(p);
   var l = new Line(0, p);
   lines = append(lines, l);
 }
 function addAS() {
   var p = new Array(2);
-  p[0] = new createVector(100, 100);
-  p[1] = new createVector(500, 500);
+  p[0] = new createVector(w.m * 2, w.m * 2);
+  p[1] = new createVector(w.m * 13, w.m * 13);
+  p = findSpaceForLine(p);
   var l = new Line(1, p);
   lines = append(lines, l);
 }
