@@ -37,7 +37,7 @@ let attributeListLineMode = {
     icon: "<p>Add AS</p>",
   },
   DeleteLineButton: {
-    func: "deleteLine()",
+    func: "deleteLine() onmouseover='makeTrue()' onmouseout='makeFalse()'",
     icon: "<p>Delete Line</p>",
   },
 };
@@ -205,7 +205,7 @@ class newButtonContainer {
     let currChar = this.list[key];
     let onclickFunc = currChar["func"];
     let innerIcon = currChar["icon"];
-    let buttonHtmlStr = `<button id=${key} onclick=${onclickFunc} onmouseover='makeTrue()' onmouseout='makeFalse()' class=${this.css}>${innerIcon}</button>`;
+    let buttonHtmlStr = `<button id=${key} onclick=${onclickFunc}  class=${this.css}>${innerIcon}</button>`;
     return buttonHtmlStr;
   }
 
