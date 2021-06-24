@@ -3,6 +3,8 @@ window.addEventListener(
   "message",
   (event) => {
     if (event.data == "downloadPNG") {
+      switchMode(0);
+      setTimeout(1,draw())
       let uri = getCanvasURI();
       let type = "downloadPNG";
       event.source.postMessage(
@@ -20,6 +22,7 @@ window.addEventListener(
 );
 
 function getCanvasURI() {
+  
   let URI = document.getElementById("defaultCanvas0").toDataURL();
   return URI;
 }
