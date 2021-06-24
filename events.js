@@ -66,6 +66,7 @@ function mousePressed() {
           k.focusing = false;
         }
         l.focusing = true;
+
         focus = true;
         for (var i = 0; i < l.p.length; i++) {
           l.transoff[i].x = w.mx - l.p[i].x;
