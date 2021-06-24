@@ -183,7 +183,7 @@ function mousePressed() {
   }
 */
 
-  if (mode == 2) {
+  if (mode == 2 && !buttonHighlight) {
     for (var tb of Object.values(tbs)) {
       if (tb.hovering && !focus) {
         tb.xoff = w.mx - tb.x;
@@ -197,7 +197,7 @@ function mousePressed() {
     }
   }
 
-  if (int(mode) == 3) {
+  if (int(mode) == 3 && !buttonHighlight) {
     for (var f of Object.values(fills)) {
       if (f.hovering && !focus) {
         f.focusing = true;
@@ -220,7 +220,8 @@ function mousePressed() {
   }
   lineselected = null;
   focus = false;
-  if (mode == 0) {
+  if (mode == 0 && !buttonHighlight) {
+    console.log(Object.values(lines))
     for (var l of Object.values(lines)) {
       if (l.hovering && !focus) {
         lineselected = l;
@@ -228,18 +229,21 @@ function mousePressed() {
           k.focusing = false;
         }
         l.focusing = true;
+        console.log('focusing...')
         focus = true;
         for (var i = 0; i < l.p.length; i++) {
           l.transoff[i].x = w.mx - l.p[i].x;
           l.transoff[i].y = w.my - l.p[i].y;
         }
+
       } else {
+        console.log('ahhh')
         l.focusing = false;
         focus = false;
       }
     }
   }
-  if (mode == 1) {
+  if (mode == 1 && !buttonHighlight) {
     var ihaveselectedsomethingalready = false;
     for (var p of Object.values(points)) {
       for (var l of Object.values(p.ls)) {
@@ -289,7 +293,7 @@ function mousePressed() {
       }
     }
   }
-  if (mode == 3.1) {
+  if (mode == 3.1  && !buttonHighlight) {
     var ihaveselectedsomethingalready = false;
     for (var p of Object.values(points)) {
       if (p.hovering) {

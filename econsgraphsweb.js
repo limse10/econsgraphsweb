@@ -21,6 +21,8 @@ let labels4 = ["Clear", "Export PNG", "Export SVG"];
 let colorbuttons = new Array(6);
 let colors;
 
+let buttonHighlight = false;
+
 let w;
 
 let main;
