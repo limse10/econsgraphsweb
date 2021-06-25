@@ -3,19 +3,19 @@
 let attributeListMainButton = {
   lineModeButton: {
     func: "switchMode(0)",
-    icon: '<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>',
+    icon: '<i class="fa fa-pencil fa-lg" aria-hidden="true"></i><p>Lines</p>',
   },
   pointModeButton: {
     func: "switchMode(1)",
-    icon: '<i class="fa fa-dot-circle-o fa-lg" aria-hidden="true"></i>',
+    icon: '<i class="fa fa-dot-circle-o fa-lg" aria-hidden="true"></i><p>Points</p>',
   },
   textModeButton: {
     func: "switchMode(2)",
-    icon: '<i class="fa fa-font fa-lg" aria-hidden="true"></i>',
+    icon: '<i class="fa fa-font fa-lg" aria-hidden="true"></i><p>Text</p>',
   },
   shadingModeButton: {
     func: "switchMode(3)",
-    icon: '<i class="fa fa-area-chart fa-lg" aria-hidden="true"></i>',
+    icon: '<i class="fa fa-area-chart fa-lg" aria-hidden="true"></i><p>Fills</p>',
   },
 };
 // line sub modes
@@ -160,18 +160,22 @@ function renderSubModeButtons() {
     subMainLineMode.visBool = true;
     subMainTextMode.visBool = false;
     subMainShadeMode.visBool = false;
+    selectionLoop('mainButtonContainer','lineModeButton')
   } else if (int(mode) == 1) {
     subMainLineMode.visBool = false;
     subMainTextMode.visBool = false;
     subMainShadeMode.visBool = false;
+    selectionLoop('mainButtonContainer','pointModeButton')
   } else if (int(mode) == 2) {
     subMainTextMode.visBool = true;
     subMainLineMode.visBool = false;
     subMainShadeMode.visBool = false;
+    selectionLoop('mainButtonContainer','textModeButton')
   } else if (int(mode) == 3) {
     subMainShadeMode.visBool = true;
     subMainLineMode.visBool = false;
     subMainTextMode.visBool = false;
+    selectionLoop('mainButtonContainer','shadingModeButton')
   }
   subMainLineMode.checkVis();
   subMainShadeMode.checkVis();
@@ -236,3 +240,40 @@ function makeTrue() {
 function makeFalse() {
   buttonHighlight = false;
 }
+
+
+function selectedAesthetic(buttonID){
+  let el = document.getElementById(buttonID)
+  let child = el.childNodes;
+  //change text visbility
+  child[1].style.visibility = 'visible'
+  el.style.color = ' rgb(235, 146, 52)';
+}
+
+function deselectAesthetic(buttonID){
+
+  let el = document.getElementById(buttonID)
+  let child = el.childNodes;
+  //change text visbility
+  child[1].style.visibility = 'hidden'
+  el.style.background = ' transparent';
+
+}
+
+function selectionLoop(IDcont, IDButton){
+  let container = document.getElementById(IDcont)
+  let childs = container.childNodes
+  let len = childs.length
+  for(let cnt = 0; cnt<len; cnt++){
+    let thisId = childs[cnt].id
+
+    if(thisId != IDButton){
+
+      deselectAesthetic(thisId)
+    }
+    else{
+      selectedAesthetic(thisId)
+    }
+  }
+}
+
