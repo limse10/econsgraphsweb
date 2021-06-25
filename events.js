@@ -155,6 +155,13 @@ function mousePressed() {
     }
 
     // var fillpts = new Array(0);
+
+    for (var i = fillpts.length - 1; i >= 0; i--) {
+      let p = fillpts[i];
+      if (!p.shading) {
+        fillpts = del(fillpts, i);
+      }
+    }
     for (var p of Object.values(points)) {
       for (var x of Object.values(p.ps)) {
         if (x.shading && !fillpts.includes(x)) {
@@ -167,9 +174,12 @@ function mousePressed() {
         break;
       }
     }
+
     if (fillpts.length > 2) {
       var f = new Fill(sortP(fillpts));
       tempfill = f;
+    } else {
+      tempfill = null;
     }
     // fillpts = new Array(0);
   }

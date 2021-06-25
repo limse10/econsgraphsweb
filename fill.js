@@ -108,8 +108,8 @@ class Fill {
           l = this.ps[i].l1;
           p1.x = this.ps[i].x;
           p1.y = this.ps[i].y;
-          p2.x = this.ps[(i + 1) % (ps.length - 1)].x;
-          p2.y = this.ps[(i + 1) % (ps.length - 1)].y;
+          p2.x = this.ps[(i + 1) % (this.ps.length - 1)].x;
+          p2.y = this.ps[(i + 1) % (this.ps.length - 1)].y;
           curve = this.generateCurve(l, p1.x, p1.y, p2.x, p2.y);
           index = i;
           this.psv = insert(this.psv, curve, index);
